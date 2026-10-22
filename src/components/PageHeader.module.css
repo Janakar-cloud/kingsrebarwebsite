@@ -1,0 +1,45 @@
+.header {
+  padding-block: var(--space-6) var(--space-7);
+  background: var(--color-surface-sunken);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.breadcrumb {
+  margin-bottom: var(--space-5);
+  font-size: 0.9375rem;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+}
+
+.breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-ink-muted);
+}
+
+.breadcrumb li + li::before {
+  content: "/";
+  margin-inline: var(--space-2);
+  color: var(--color-ink-muted);
+}
+
+.breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  min-width: 1.5rem;
+}
+
+.title {
+  max-width: 24ch;
+  margin-bottom: var(--space-4);
+}
+
+.title:last-child {
+  margin-bottom: 0;
+}

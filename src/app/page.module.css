@@ -1,0 +1,58 @@
+.hero {
+  padding-block: clamp(2.5rem, 2rem + 4vw, 5.5rem);
+  background: var(--color-surface-raised);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.heroGrid {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.heroText > * + * {
+  margin-top: var(--space-5);
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: clamp(2.5rem, 1.6rem + 4vw, 4.5rem);
+  letter-spacing: -0.02em;
+}
+
+.explore {
+  list-style: none;
+}
+
+.exploreLink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.exploreLink h3 {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.exploreLink:hover {
+  color: inherit;
+  border-top-color: var(--color-accent);
+}
+
+.exploreLink:hover h3 {
+  color: var(--color-accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+@media (min-width: 56rem) {
+  .heroGrid {
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-7);
+  }
+}

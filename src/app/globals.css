@@ -1,0 +1,329 @@
+:root {
+  /* Palette. Text colours meet WCAG AA (4.5:1) against the surfaces they are used on. */
+  --color-ink: #18212b;
+  --color-ink-muted: #47525f;
+  --color-surface: #f6f5f2;
+  --color-surface-raised: #ffffff;
+  --color-surface-sunken: #ecebe6;
+  --color-steel: #1f2a36;
+  --color-steel-text: #e8ecf0;
+  --color-steel-muted: #b9c2cc;
+  --color-line: #cfcdc6;
+  --color-line-strong: #8a8f96;
+  --color-accent: #a14a24;
+  --color-accent-hover: #833a1a;
+  --color-accent-on-dark: #f0a37f;
+  --color-focus: #1b5fd1;
+  --color-focus-on-dark: #9cc2ff;
+  --color-error: #b3261e;
+  --color-error-surface: #fdecea;
+  --color-success: #1e6b3a;
+  --color-success-surface: #e7f4ec;
+  --color-pending-surface: #fff4d6;
+  --color-pending-line: #a37800;
+  --color-pending-text: #4d3900;
+
+  --font-sans: var(--font-geist-sans), "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+
+  --page-gutter: clamp(1rem, 4vw, 2.5rem);
+  --page-max: 75rem;
+  --measure: 68ch;
+  --radius: 4px;
+  --tap-target: 2.75rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+main:focus {
+  outline: none;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-4);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+
+p {
+  margin: 0 0 var(--space-4);
+  max-width: var(--measure);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+img,
+svg,
+iframe {
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+dl,
+dd {
+  margin: 0;
+}
+
+/* Layout */
+
+.container {
+  width: 100%;
+  max-width: calc(var(--page-max) + 2 * var(--page-gutter));
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.section {
+  padding-block: clamp(2.5rem, 2rem + 3vw, 4.5rem);
+}
+
+.section + .section {
+  border-top: 1px solid var(--color-line);
+}
+
+.section--sunken {
+  background: var(--color-surface-sunken);
+}
+
+.stack > * + * {
+  margin-top: var(--space-5);
+}
+
+.lead {
+  font-size: clamp(1.125rem, 1.05rem + 0.4vw, 1.3125rem);
+  color: var(--color-ink-muted);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.card-grid {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16.5rem), 1fr));
+  list-style: none;
+}
+
+.card {
+  height: 100%;
+  padding: var(--space-5);
+  background: var(--color-surface-raised);
+  border: 1px solid var(--color-line);
+  border-top: 4px solid var(--color-steel);
+  border-radius: var(--radius);
+}
+
+.card h3 {
+  margin-bottom: var(--space-2);
+}
+
+.card p {
+  color: var(--color-ink-muted);
+}
+
+.plain-list {
+  list-style: none;
+}
+
+/* Buttons */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-target);
+  padding: 0.65rem 1.35rem;
+  border: 2px solid var(--color-accent);
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 650;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: #fff;
+}
+
+.button--secondary {
+  background: transparent;
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.button--secondary:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: #fff;
+}
+
+.button[aria-disabled="true"] {
+  cursor: progress;
+  opacity: 0.75;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* Pending client content. Only rendered in development and preview builds. */
+
+.pending {
+  display: block;
+  max-width: var(--measure);
+  padding: var(--space-3) var(--space-4);
+  border: 2px dashed var(--color-pending-line);
+  border-radius: var(--radius);
+  background: var(--color-pending-surface);
+  color: var(--color-pending-text);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.pending__label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  margin-right: var(--space-2);
+}
+
+.preview-banner {
+  background: var(--color-pending-surface);
+  border-bottom: 2px dashed var(--color-pending-line);
+  color: var(--color-pending-text);
+  font-size: 0.875rem;
+}
+
+.preview-banner p {
+  max-width: none;
+  padding-block: var(--space-2);
+}
+
+/* Utilities */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .button,
+  .card,
+  .pending {
+    border-color: CanvasText;
+  }
+}

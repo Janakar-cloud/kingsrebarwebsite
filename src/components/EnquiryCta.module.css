@@ -1,0 +1,37 @@
+.band {
+  background: var(--color-steel);
+  color: var(--color-steel-text);
+  padding-block: var(--space-7);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+}
+
+.heading {
+  margin-bottom: var(--space-2);
+}
+
+.body {
+  color: var(--color-steel-muted);
+}
+
+.band :focus-visible {
+  outline-color: var(--color-focus-on-dark);
+}
+
+.band .button {
+  background: var(--color-accent-on-dark);
+  border-color: var(--color-accent-on-dark);
+  color: var(--color-steel);
+}
+
+.band .button:hover {
+  background: #fff;
+  border-color: #fff;
+  color: var(--color-steel);
+}

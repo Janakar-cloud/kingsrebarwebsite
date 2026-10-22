@@ -1,0 +1,53 @@
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.product h3,
+.product p {
+  margin: 0;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.details {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+  font-size: 0.9375rem;
+}
+
+.details > div {
+  display: grid;
+  grid-template-columns: minmax(6rem, 40%) 1fr;
+  gap: var(--space-3);
+}
+
+.details dt {
+  font-weight: 650;
+}
+
+.enquire {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  font-weight: 650;
+}
+
+.sample {
+  max-width: none;
+}
+
+.sample h3 {
+  margin-top: var(--space-2);
+}
