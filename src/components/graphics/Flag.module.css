@@ -1,0 +1,15 @@
+.flag {
+  display: inline-flex;
+  flex: none;
+  width: 1.85rem;
+  height: 1.25rem;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgb(15 23 32 / 0.14);
+}
+
+.flag svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

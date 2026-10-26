@@ -1,68 +1,81 @@
-import { EnquiryCta } from "@/components/EnquiryCta";
-import { ItemList } from "@/components/ItemList";
-import { PageHeader } from "@/components/PageHeader";
-import { Paragraphs, shouldRender, Text } from "@/components/Pending";
-import { about } from "@/content/pages";
-import { isApproved } from "@/content/types";
-import { showPlaceholders } from "@/lib/env";
-import { pageMetadata } from "@/lib/seo";
+import Image from "next/image";
 
-export const metadata = pageMetadata(about.meta, "/about");
+import { ItemList } from "@/components/content/ItemList";
+import { Paragraphs, Text } from "@/components/content/Pending";
+import { routeMotifs } from "@/components/graphics/Motif";
+import { Reveal } from "@/components/motion/Reveal";
+import { EditorialSection } from "@/components/sections/EditorialSection";
+import { EnquiryCta } from "@/components/sections/EnquiryCta";
+import { PageHero } from "@/components/sections/PageHero";
+import { ButtonLink } from "@/components/ui/Button";
+import { Section } from "@/components/ui/Section";
+import { about } from "@/content/pages/about";
+import { routes } from "@/content/routes";
+import { pageMetadata } from "@/lib/seo";
+import styles from "./about.module.css";
+
+export const metadata = pageMetadata(about.meta, routes.about, { absoluteTitle: true });
 
 export default function AboutPage() {
-  const { overview, history, values, locations } = about;
-  const textSections = [
-    { id: "overview", section: overview },
-    { id: "history", section: history },
-  ].filter(({ section }) => shouldRender(section.paragraphs));
-  const showValues = shouldRender(values.items);
-  const showLocations = shouldRender(locations.intro, locations.items);
-  const hasAnyApproved =
-    [overview.paragraphs, history.paragraphs, values.items, locations.items, locations.intro].some(
-      (value) => isApproved(value),
-    );
+  const { history, founder, approach, people, locations, cta } = about;
 
   return (
     <>
-      <PageHeader title={about.meta.title} intro={about.intro} />
+      <PageHero
+        route={routes.about}
+        title={about.title}
+        intro={about.intro}
+        summary={about.summary}
+        motif={routeMotifs[routes.about]}
+        image={about.heroImage}
+        storytelling
+      />
 
-      {textSections.map(({ id, section }) => (
-        <section key={id} className="section" aria-labelledby={`${id}-heading`}>
-          <div className="container">
-            <h2 id={`${id}-heading`}>{section.heading}</h2>
-            <Paragraphs value={section.paragraphs} />
+      <Section labelledBy="history-heading">
+        <div className={styles.story}>
+          <div className={styles.intro}>
+            <p className="eyebrow">Story</p>
+            <h2 id="history-heading" className={styles.draw}>
+              {history.heading}
+            </h2>
           </div>
-        </section>
-      ))}
+          <figure className={styles.portrait}>
+            <Image
+              src={founder.image.src}
+              alt={founder.image.alt}
+              width={founder.image.width}
+              height={founder.image.height}
+              sizes="(min-width: 56rem) 28rem, 92vw"
+              className={styles.photo}
+            />
+            <figcaption className={styles.caption}>
+              <span className={styles.name}>{founder.name}</span>
+              <span className={styles.role}>{founder.role}</span>
+            </figcaption>
+          </figure>
+          <Reveal variant="clip" className={styles.copy}>
+            <Paragraphs value={history.paragraphs} />
+          </Reveal>
+        </div>
+      </Section>
 
-      {showValues && (
-        <section className="section" aria-labelledby="values-heading">
-          <div className="container">
-            <h2 id="values-heading">{values.heading}</h2>
-            <ItemList items={values.items} />
-          </div>
-        </section>
-      )}
+      <EditorialSection id="approach-heading" eyebrow="Approach" heading={approach.heading} tone="sunken">
+        <Paragraphs value={approach.paragraphs} />
+      </EditorialSection>
 
-      {showLocations && (
-        <section className="section" aria-labelledby="locations-heading">
-          <div className="container stack">
-            <h2 id="locations-heading">{locations.heading}</h2>
-            <Text value={locations.intro} />
-            <ItemList items={locations.items} />
-          </div>
-        </section>
-      )}
+      <EditorialSection id="people-heading" eyebrow="People" heading={people.heading}>
+        <Paragraphs value={people.paragraphs} />
+        <ButtonLink href={people.cta.href} arrow>
+          {people.cta.label}
+        </ButtonLink>
+      </EditorialSection>
 
-      {!hasAnyApproved && !showPlaceholders && (
-        <section className="section">
-          <div className="container">
-            <p className="lead">{about.emptyFallback}</p>
-          </div>
-        </section>
-      )}
+      <EditorialSection id="locations-heading" eyebrow="Locations" heading={locations.heading} reveal="clip">
+        <Text value={locations.intro} className="lead" />
+        <ItemList items={locations.items} motion="group" layout="row" />
+      </EditorialSection>
 
-      <EnquiryCta />
+      <EnquiryCta heading={cta.heading} body={cta.body} label={cta.label} href={cta.href} />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
-import { navigation } from "@/content/site";
-import { siteUrl } from "@/lib/env";
+import { siteUrl } from "@/config/env";
+import { navigation, routes } from "@/content/routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteUrl;
@@ -9,6 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return navigation.map((item) => ({
     url: new URL(item.href, base).href,
     changeFrequency: "monthly",
-    priority: item.href === "/" ? 1 : 0.7,
+    priority: item.href === routes.home ? 1 : 0.7,
   }));
 }

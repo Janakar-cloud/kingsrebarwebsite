@@ -1,48 +1,68 @@
 .layout {
   display: grid;
   gap: var(--space-7);
+  align-items: start;
 }
 
-.formColumn {
-  min-width: 0;
+@media (min-width: 64rem) {
+  .layout {
+    grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+
+  .aside {
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-6));
+  }
 }
 
-.detailsColumn {
-  min-width: 0;
+.formCard {
+  max-width: 52rem;
+  padding: clamp(var(--space-5), 4vw, var(--space-8));
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-raised);
+  box-shadow: var(--shadow-md);
 }
 
-.detailsColumn > * + * {
-  margin-top: var(--space-5);
+.heading {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-2xl);
 }
 
-.details dl {
+.aside {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
-.details dt {
-  font-weight: 650;
-}
-
-.details address {
-  font-style: normal;
-}
-
-.details > * + * {
-  margin-top: var(--space-3);
+.aside .heading {
+  margin-bottom: 0;
+  font-size: var(--text-xl);
 }
 
 .map {
-  display: block;
   width: 100%;
   aspect-ratio: 4 / 3;
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius);
+  border: 0;
+  border-radius: var(--radius-lg);
 }
 
-@media (min-width: 60rem) {
-  .layout {
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    align-items: start;
-  }
+.offices {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.addressBlock h3 {
+  margin-bottom: var(--space-3);
+}
+
+.addressBlock address {
+  display: grid;
+  gap: 0.15rem;
+  font-style: normal;
+}
+
+.addressBlock span {
+  display: block;
 }

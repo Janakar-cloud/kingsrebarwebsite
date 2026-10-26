@@ -1,0 +1,286 @@
+.form {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.row {
+  display: grid;
+  gap: var(--space-6) var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  min-width: 0;
+}
+
+.fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.label {
+  padding: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.requirement {
+  font-weight: 400;
+  color: var(--color-fg-muted);
+}
+
+.hint {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+.count {
+  float: right;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.control {
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-raised);
+  color: var(--color-fg);
+  /* 16px minimum prevents iOS zooming on focus. */
+  font-size: max(1rem, 1em);
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+textarea.control {
+  resize: vertical;
+  min-height: 10rem;
+  line-height: 1.55;
+}
+
+.control:hover {
+  border-color: var(--color-fg);
+}
+
+.control:focus-visible {
+  outline: none;
+  border-color: var(--color-focus);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus) 35%, transparent);
+}
+
+.field[data-invalid="true"] .control {
+  border-color: var(--color-error);
+  border-width: 2px;
+}
+
+.error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-error);
+}
+
+.errorIcon {
+  flex: none;
+  margin-top: 0.2em;
+}
+
+/* Topic chips: native radios, restyled. */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+}
+
+.chipInput {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.chipLabel {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-raised);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  pointer-events: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.chip:hover .chipLabel {
+  border-color: var(--color-fg);
+}
+
+.chipInput:active + .chipLabel {
+  transform: scale(0.97);
+}
+
+.chipInput:checked + .chipLabel {
+  border-color: var(--color-fg);
+  background: var(--color-fg);
+  color: var(--color-bg);
+}
+
+.chipInput:focus-visible + .chipLabel {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.fieldset[data-invalid="true"] .chipLabel {
+  border-color: var(--color-error);
+}
+
+/* Notices */
+
+.summary,
+.failure {
+  padding: var(--space-5) var(--space-6);
+  border: 2px solid var(--color-error);
+  border-radius: var(--radius-md);
+  background: var(--color-error-surface);
+}
+
+.noticeHeading {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-stretch: normal;
+}
+
+.summary ul {
+  padding-left: 1.25rem;
+}
+
+.summary a {
+  color: var(--color-error);
+  font-weight: 600;
+}
+
+.success {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--space-6);
+  border: 1px solid var(--color-success);
+  border-radius: var(--radius-lg);
+  background: var(--color-success-surface);
+  animation: success-in var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes success-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--distance-md), 0);
+  }
+}
+
+.successIcon {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--color-success);
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.successHeading {
+  margin: 0;
+  font-size: var(--text-xl);
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.privacy {
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-sunken);
+  font-size: var(--text-sm);
+}
+
+.privacyHeading {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-stretch: normal;
+  letter-spacing: 0;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.statusText {
+  margin: 0;
+  color: var(--color-fg-muted);
+}
+
+.spinner {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: var(--space-2);
+  vertical-align: -0.15em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.6;
+  }
+}
+
+@media (forced-colors: active) {
+  .chipInput:checked + .chipLabel {
+    border: 3px solid Highlight;
+  }
+}

@@ -1,34 +1,38 @@
-import { EnquiryCta } from "@/components/EnquiryCta";
-import { ItemList } from "@/components/ItemList";
-import { PageHeader } from "@/components/PageHeader";
-import { PendingNote } from "@/components/Pending";
-import { applications } from "@/content/pages";
-import { showPlaceholders } from "@/lib/env";
+import { ItemList } from "@/components/content/ItemList";
+import { shouldRender } from "@/components/content/Pending";
+import { routeMotifs } from "@/components/graphics/Motif";
+import { EnquiryCta } from "@/components/sections/EnquiryCta";
+import { PageHero } from "@/components/sections/PageHero";
+import { Section } from "@/components/ui/Section";
+import { applications } from "@/content/pages/applications";
+import { routes } from "@/content/routes";
 import { pageMetadata } from "@/lib/seo";
 
-export const metadata = pageMetadata(applications.meta, "/applications");
+export const metadata = pageMetadata(applications.meta, routes.applications, { absoluteTitle: true });
 
 export default function ApplicationsPage() {
-  const items = applications.items.map((item) => ({ title: item.title, description: item.description }));
-  const hasItems = items.length > 0;
-
   return (
     <>
-      <PageHeader title={applications.meta.title} intro={applications.intro} />
+      <PageHero
+        route={routes.applications}
+        title={applications.title}
+        intro={applications.intro}
+        summary={applications.summary}
+        motif={routeMotifs[routes.applications]}
+        image={applications.heroImage}
+      />
 
-      {(hasItems || showPlaceholders) && (
-        <section className="section" aria-labelledby="applications-heading">
-          <div className="container stack">
-            <h2 id="applications-heading">Uses and industries</h2>
-            {hasItems ? <ItemList items={items} /> : <PendingNote note={applications.itemsPendingNote} />}
-          </div>
-        </section>
+      {shouldRender(applications.items) && (
+        <Section tone="sunken">
+          <ItemList items={applications.items} headingLevel={2} />
+        </Section>
       )}
 
       <EnquiryCta
-        heading="Discuss your requirements"
-        body={applications.emptyFallback}
-        linkLabel="Contact Kings Rebar"
+        heading={applications.cta.heading}
+        body={applications.cta.body}
+        label={applications.cta.label}
+        href={applications.cta.href}
       />
     </>
   );

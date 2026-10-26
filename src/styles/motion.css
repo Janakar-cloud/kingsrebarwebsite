@@ -1,0 +1,177 @@
+/*
+ * Motion system. Everything here is progressive enhancement:
+ * - Content is fully visible by default. RevealObserver only hides elements
+ *   that start below the viewport, so nothing on screen ever flashes.
+ * - Entrance keyframes are CSS only and settle within about one second.
+ * - prefers-reduced-motion removes movement, stagger and page transitions.
+ */
+@layer motion {
+  @keyframes kr-rise {
+    from {
+      opacity: 0;
+      transform: translate3d(0, var(--distance-md), 0);
+    }
+  }
+
+  @keyframes kr-line-up {
+    from {
+      transform: translate3d(0, 105%, 0);
+    }
+  }
+
+  @keyframes kr-settle {
+    from {
+      opacity: 0;
+      transform: scale(1.06);
+    }
+  }
+
+  @keyframes kr-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes kr-unmask {
+    from {
+      clip-path: inset(6%);
+    }
+  }
+
+  @keyframes kr-draw {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes kr-fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes kr-lift-out {
+    to {
+      transform: translate3d(0, calc(var(--distance-sm) * -1), 0);
+    }
+  }
+
+  @keyframes kr-lift-in {
+    from {
+      transform: translate3d(0, var(--distance-md), 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Scroll reveals: one shared observer toggles data-reveal-state. */
+    [data-reveal] {
+      transition:
+        opacity var(--duration-slow) var(--ease-out),
+        transform var(--duration-slow) var(--ease-out);
+      transition-delay: calc(min(var(--reveal-index, 0), 6) * var(--stagger));
+    }
+
+    [data-reveal][data-reveal-state="pending"] {
+      opacity: 0;
+      transform: translate3d(0, var(--distance-lg), 0);
+    }
+
+    [data-reveal="fade"][data-reveal-state="pending"] {
+      transform: none;
+    }
+
+    [data-reveal="scale"][data-reveal-state="pending"] {
+      transform: scale(0.96);
+    }
+
+    [data-reveal="clip"] {
+      clip-path: inset(0);
+      transition:
+        clip-path var(--duration-slow) var(--ease-out),
+        opacity var(--duration-slow) var(--ease-out);
+    }
+
+    [data-reveal="clip"][data-reveal-state="pending"] {
+      opacity: 1;
+      transform: none;
+      clip-path: inset(0 12% 0 0);
+    }
+
+    /* Load entrance sequence (hero and page heroes). */
+    [data-enter] {
+      animation: kr-rise var(--duration-slower) var(--ease-out) both;
+      animation-delay: calc(var(--enter-index, 0) * var(--stagger-lg) + 120ms);
+    }
+
+    [data-enter="line"] {
+      animation-name: kr-line-up;
+    }
+
+    [data-enter="settle"] {
+      animation: kr-settle 1.4s var(--ease-out) both;
+    }
+
+    [data-enter="fade"] {
+      animation-name: kr-fade-in;
+    }
+
+    [data-enter="unmask"] {
+      animation:
+        kr-settle 1.4s var(--ease-out) both,
+        kr-unmask 1.1s var(--ease-out) both;
+      animation-delay: calc(var(--enter-index, 0) * var(--stagger-lg) + 120ms);
+    }
+  }
+
+  /* Route transitions via React <ViewTransition> (see app/template.tsx). */
+  ::view-transition {
+    pointer-events: none;
+  }
+
+  ::view-transition-old(.page-exit) {
+    animation:
+      var(--duration-fast) var(--ease-in) both kr-fade-out,
+      var(--duration-fast) var(--ease-in) both kr-lift-out;
+  }
+
+  ::view-transition-new(.page-enter) {
+    animation:
+      var(--duration-base) var(--ease-out) var(--duration-instant) both kr-fade-in,
+      var(--duration-slow) var(--ease-out) both kr-lift-in;
+  }
+
+  /* The header and page chrome stay put while the page content moves. */
+  ::view-transition-group(site-header) {
+    z-index: 100;
+    animation: none;
+  }
+
+  ::view-transition-old(site-header),
+  ::view-transition-old(root) {
+    display: none;
+  }
+
+  ::view-transition-new(site-header),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
+      scroll-behavior: auto !important;
+    }
+
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+}

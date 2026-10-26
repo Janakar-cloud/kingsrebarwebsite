@@ -1,18 +1,15 @@
 import type { Metadata } from "next";
 
-import type { PageMeta } from "@/content/pages";
+import { siteUrl } from "@/config/env";
+import type { Route } from "@/content/routes";
 import { site } from "@/content/site";
-import { siteUrl } from "./env";
+import type { PageMeta } from "@/content/types";
 
 /**
  * Builds metadata for a page from its centrally managed title and description.
  * Metadata merges shallowly, so every page must restate the shared Open Graph fields.
  */
-export function pageMetadata(
-  meta: PageMeta,
-  path: string,
-  options?: { absoluteTitle?: boolean },
-): Metadata {
+export function pageMetadata(meta: PageMeta, path: Route, options?: { absoluteTitle?: boolean }): Metadata {
   const fullTitle = options?.absoluteTitle ? meta.title : `${meta.title} | ${site.siteTitle}`;
   const image = site.assets.socialImage;
 

@@ -6,7 +6,7 @@ import {
   normaliseEnquiry,
   validateEnquiry,
   validateField,
-} from "../src/lib/enquiry/validation.ts";
+} from "../src/features/enquiry/validation.ts";
 
 const topics = ["General enquiry", "Other"];
 

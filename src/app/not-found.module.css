@@ -1,0 +1,17 @@
+.hero {
+  position: relative;
+  padding-block: var(--space-9);
+  background: var(--steel-950);
+  color: var(--color-fg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.pagesHeading {
+  font-size: var(--text-xl);
+}

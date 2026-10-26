@@ -1,0 +1,47 @@
+.wordmark {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  color: var(--color-fg);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wordmark:hover {
+  color: var(--color-fg);
+}
+
+.text {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 400;
+  font-stretch: 125%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.strong {
+  font-weight: 800;
+}
+
+.logo,
+.logoLg {
+  display: block;
+  width: auto;
+}
+
+.logo {
+  height: 2.75rem;
+  max-width: min(13rem, 54vw);
+}
+
+.logoLg {
+  height: 3.5rem;
+  max-width: 16rem;
+}
+
+@media (min-width: 72rem) {
+  .logo {
+    height: 3.125rem;
+  }
+}

@@ -1,0 +1,41 @@
+.heading {
+  margin: 0;
+}
+
+@media (min-width: 56rem) {
+  .align:has(.aside :global(.eyebrow)) {
+    grid-template-rows: auto auto;
+    align-items: start;
+  }
+
+  .align:has(.aside :global(.eyebrow)) .aside {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span 2;
+  }
+
+  .align:has(.aside :global(.eyebrow)) .body {
+    grid-row: 2;
+    align-self: start;
+  }
+
+  @supports not (grid-template-rows: subgrid) {
+    .align:has(.aside :global(.eyebrow)) .body {
+      margin-top: calc(var(--text-xs) * 1.5 + var(--space-5));
+    }
+  }
+}
+
+.after {
+  margin-top: var(--space-8);
+}
+
+.body > * + * {
+  margin-top: var(--space-6);
+}
+
+.large > p:not(:global(.pending)) {
+  font-size: var(--text-xl);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}

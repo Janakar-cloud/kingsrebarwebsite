@@ -1,17 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
 import Script from "next/script";
 
-import { SiteFooter } from "@/components/SiteFooter";
-import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { RevealObserver } from "@/components/motion/RevealObserver";
+import { allowIndexing, siteUrl } from "@/config/env";
+import { fontVariables } from "@/config/fonts";
 import { site } from "@/content/site";
-import { allowIndexing, siteUrl } from "@/lib/env";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   metadataBase: siteUrl ?? undefined,
@@ -26,18 +22,20 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1f2a36",
+  themeColor: "#0b0f12",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang={site.language} className={geistSans.variable}>
+    <html lang={site.language} className={fontVariables}>
       <body>
         <SiteHeader />
         <main id="main-content" tabIndex={-1}>
           {children}
         </main>
         <SiteFooter />
+        <RevealObserver />
         {site.analytics && (
           <Script src={site.analytics.scriptSrc} strategy="afterInteractive" {...site.analytics.attributes} />
         )}

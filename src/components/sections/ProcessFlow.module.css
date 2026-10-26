@@ -1,0 +1,252 @@
+.board {
+  position: relative;
+  isolation: isolate;
+}
+
+.wires {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  color: var(--color-accent);
+}
+
+.wire,
+.loopWire {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.loopWire {
+  stroke-dasharray: 5 6;
+}
+
+.tracer {
+  fill: var(--color-accent);
+  stroke: var(--color-bg);
+  stroke-width: 2;
+}
+
+.steps {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  min-width: 0;
+}
+
+.card {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-raised);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: var(--color-line-strong);
+  box-shadow: var(--shadow-lg);
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background: var(--color-graphic-base);
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform 1.15s var(--ease-out);
+}
+
+.step[data-reveal-state="pending"] .photo {
+  transform: scale(1.08);
+}
+
+.meta {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5);
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-accent-text);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-lg);
+}
+
+.detail {
+  margin: 0;
+  color: var(--color-fg-muted);
+}
+
+.loopCallout {
+  margin: var(--space-4) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--color-accent);
+  border-radius: var(--radius-md);
+  color: var(--color-accent-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.loopNote {
+  position: absolute;
+  z-index: 2;
+  display: none;
+  width: max-content;
+  margin: 0;
+  padding: 0.4rem 0.75rem;
+  border: 1px dashed var(--color-accent);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-accent-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+}
+
+@media (min-width: 56rem) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-8);
+    row-gap: clamp(6.75rem, 8vw, 8.5rem);
+  }
+
+  .step:nth-child(1) {
+    grid-area: 1 / 1;
+  }
+
+  .step:nth-child(2) {
+    grid-area: 1 / 2;
+  }
+
+  .step:nth-child(3) {
+    grid-area: 1 / 3;
+  }
+
+  .step:nth-child(4) {
+    grid-area: 2 / 3;
+  }
+
+  .step:nth-child(5) {
+    grid-area: 2 / 2;
+  }
+
+  .step:nth-child(6) {
+    grid-area: 2 / 1;
+  }
+
+  .card {
+    height: 100%;
+  }
+
+  .loopCallout {
+    display: none;
+  }
+
+  .loopNote {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wire,
+  .loopWire {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  .loopWire {
+    stroke-dasharray: 0.04 0.045;
+  }
+
+  .board[data-wires="ready"] .wire,
+  .board[data-wires="ready"] .loopWire {
+    animation: process-draw 0.8s var(--ease-out) forwards;
+  }
+
+  .card:hover,
+  .card:focus-within {
+    transform: translate3d(0, -4px, 0);
+  }
+
+  .step[data-reveal-state="shown"] .card:hover .photo,
+  .step[data-reveal-state="shown"] .card:focus-within .photo {
+    transform: scale(1.05);
+  }
+
+  @supports (animation-timeline: view()) {
+    .photo {
+      animation: process-crop linear both;
+      animation-timeline: view();
+      animation-range: contain 0% contain 100%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wire,
+  .loopWire {
+    stroke-dashoffset: 0;
+    animation: none;
+  }
+
+  .tracer {
+    display: none;
+  }
+}
+
+@keyframes process-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes process-crop {
+  from {
+    object-position: 50% 42%;
+  }
+
+  to {
+    object-position: 50% 58%;
+  }
+}

@@ -1,13 +1,13 @@
+import { isProduction } from "@/config/env";
 import { site } from "@/content/site";
 import { isApproved } from "@/content/types";
-import { deliverEnquiry, getDeliveryDestination } from "@/lib/enquiry/deliver";
+import { deliverEnquiry, getDeliveryDestination } from "@/features/enquiry/deliver";
 import {
   honeypotField,
   normaliseEnquiry,
   validateEnquiry,
   type EnquiryResponse,
-} from "@/lib/enquiry/validation";
-import { isProduction } from "@/lib/env";
+} from "@/features/enquiry/validation";
 
 const maxBodyBytes = 20_000;
 

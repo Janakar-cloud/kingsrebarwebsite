@@ -1,0 +1,26 @@
+.details {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.list {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.entry {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.term {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-fg-muted);
+}
+
+.line {
+  display: block;
+}

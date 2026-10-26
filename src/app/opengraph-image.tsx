@@ -1,32 +1,77 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
-import { site } from "@/content/site";
-
-// Typographic sharing image used until an approved 1200×630 image is supplied.
-// Pages reference it through site.assets.socialImage; see that entry to replace it.
-
-export const alt = site.companyName;
+export const alt = "Kings Rebar, rebar detailing and estimation";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+/** Sharing card built from the approved logo and lion mark on the site steel. */
+export default async function OpenGraphImage() {
+  const [logoFile, markFile] = await Promise.all([
+    readFile(join(process.cwd(), "public/images/logo.png")),
+    readFile(join(process.cwd(), "public/images/mark.png")),
+  ]);
+  const logo = `data:image/png;base64,${logoFile.toString("base64")}`;
+  const mark = `data:image/png;base64,${markFile.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
         style={{
+          display: "flex",
+          position: "relative",
           width: "100%",
           height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          padding: "80px",
-          background: "#1f2a36",
-          color: "#e8ecf0",
+          background: "linear-gradient(135deg, #0b0f12 0%, #161d23 64%, #1c1612 100%)",
+          color: "#eef1f3",
         }}
       >
-        <div style={{ width: 160, height: 12, background: "#a14a24", marginBottom: 40 }} />
-        <div style={{ fontSize: 96, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase" }}>
-          {site.companyName}
+        <img
+          src={mark}
+          width={540}
+          height={540}
+          style={{
+            position: "absolute",
+            right: -48,
+            top: 28,
+            opacity: 0.2,
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            width: "100%",
+            height: "100%",
+            padding: "72px 80px",
+          }}
+        >
+          <img src={logo} width={460} height={272} />
+          <div
+            style={{
+              display: "flex",
+              width: 120,
+              height: 6,
+              marginTop: 36,
+              borderRadius: 4,
+              background: "#e0672f",
+            }}
+          />
+          <div
+            style={{
+              display: "flex",
+              marginTop: 22,
+              fontSize: 26,
+              letterSpacing: 5,
+              textTransform: "uppercase",
+              color: "#a3aeb8",
+            }}
+          >
+            Detailing and estimation
+          </div>
         </div>
       </div>
     ),

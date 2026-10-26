@@ -1,15 +1,16 @@
 # Kings Rebar website
 
-Company website for Kings Rebar: six pages (Home, About, Products, Applications,
-Quality & Responsibility, Contact) and an enquiry form.
+Company website for Kings Rebar Private Limited: six pages (Home, About,
+Services, Industries, Careers, Contact) and an enquiry form.
 
 Built with Next.js 16 (App Router, TypeScript, Cache Components) and plain CSS
 modules. There are no runtime dependencies beyond Next.js and React.
 
-> **Content status:** apart from the company name, no company facts have been
-> supplied yet. Every unknown is marked `pending(...)` in the content files and
-> listed in [CONTENT_CHECKLIST.md](./CONTENT_CHECKLIST.md). Nothing may launch
-> until the client has approved that list.
+> **Content status:** company copy, services, locations, careers, the public
+> email, logo and founder portrait are in `src/content/` and `public/images/`.
+> Remaining gaps (privacy notice, form destination, domain) are listed in
+> [docs/CONTENT_CHECKLIST.md](./docs/CONTENT_CHECKLIST.md).
+> `/products` redirects to `/services`. `/quality-responsibility` redirects to `/careers`.
 
 ## Commands
 
@@ -29,15 +30,17 @@ Requires Node.js 20.9 or later.
 ## Where things live
 
 ```
-src/content/site.ts     Company name, contact channels, assets, social, analytics, form settings, navigation
-src/content/pages.ts    Copy, metadata and lists (products, applications, certifications) for each page
-src/content/types.ts    pending()/isApproved() helpers and shared content types
-src/lib/env.ts          Deployment settings read from environment variables
-src/lib/enquiry/        Shared validation and the server-side delivery integration point
-src/app/api/enquiry/    POST endpoint used by the form
-src/app/*/page.tsx      The six routes
-src/components/         Header, navigation, footer, form and layout components
-public/images/          Put approved images here
+src/content/site.ts           Company name, contact channels, assets, social, analytics, form settings
+src/content/routes.ts         Navigation and public paths
+src/content/locations.ts      Shared offices and markets
+src/content/pages/            Copy and metadata for each route
+src/content/types.ts          pending()/isApproved() helpers and shared content types
+src/config/env.ts             Deployment settings read from environment variables
+src/features/enquiry/         Form, validation and server-side delivery
+src/app/api/enquiry/          POST endpoint used by the form
+src/app/*/page.tsx            The six routes
+src/components/               Header, navigation, footer, form and layout components
+public/images/                Put approved images here
 ```
 
 ### Editing content
@@ -50,9 +53,9 @@ intro: pending("Add an approved introduction to Kings Rebar here.") as Approved<
 intro: "Approved introduction text supplied by Kings Rebar.",
 ```
 
-Lists such as `products.items`, `applications.items` and
-`quality.certifications.items` start empty. Add only confirmed entries. Do not
-add placeholder entries.
+Edit the matching file under `src/content/pages/` (for example `services.ts`
+or `careers.ts`). Add only confirmed entries. Do not add placeholder products,
+certifications or unnamed clients.
 
 ### Placeholder behaviour
 
@@ -66,21 +69,23 @@ add placeholder entries.
 
 ### Images
 
-All imagery must be approved and must genuinely show Kings Rebar's people,
-premises, products or projects. Until then, a neutral geometric pattern is
-shown. Do not substitute stock photos that could be mistaken for the company's own.
+The image set was approved on 22 Oct 2026: client logo, lion mark, founder
+portrait, and original SVG steel graphics. Do not add generated people, offices,
+projects, or certificates. Optional extra photographs go in `public/images/`
+and are referenced from `src/content/` only after they are supplied.
 
 | Slot                       | Where to set it                        | Size / format                                |
 | -------------------------- | -------------------------------------- | -------------------------------------------- |
-| Logo                       | `site.assets.logo`                     | SVG preferred; otherwise PNG ≥ 480px wide, transparent |
-| Home hero                  | `home.hero.image`                      | 1600×1000, WebP or JPG, < 300 KB             |
-| Product images             | `products.items[].image`               | 1200×900 (4:3), WebP or JPG                  |
-| Social sharing image       | `site.assets.socialImage`              | 1200×630, JPG or PNG                         |
-| Browser icon               | `src/app/icon.svg`                     | Square SVG. The current neutral placeholder is not a logo |
+| Logo                       | `site.assets.logo`                     | Transparent PNG lockup at `/images/logo.png` |
+| Lion mark                  | `site.assets.mark`                     | Circular seal on the home hero               |
+| Founder portrait           | `about.founder.image`                  | `/images/founder-vigneshwaran.jpg`           |
+| Home hero                  | `home.hero.image`                      | Optional photo; until then, rebar graphic + seal |
+| Social sharing image       | `src/app/opengraph-image.tsx`          | 1200×630 card generated from the logo        |
+| Browser icon               | `src/app/icon.png`                     | Square PNG from the lion mark                |
 
 Images use `ImageAsset` (`src`, `alt`, `width`, `height`). Write `alt` text that
-describes the image. Use `alt: ""` only for purely decorative images. Until a
-logo is approved, the header shows a typographic "Kings Rebar" wordmark.
+describes the image. Use `alt: ""` only for purely decorative images. The header
+and footer use the approved Kings Rebar lockup.
 
 ## Enquiry form
 

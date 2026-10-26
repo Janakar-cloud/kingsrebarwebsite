@@ -1,0 +1,42 @@
+.cta {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: var(--section-y);
+  background: var(--steel-900);
+  color: var(--color-fg);
+}
+
+.graphic {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+}
+
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, var(--steel-900) 20%, rgb(14 19 23 / 0.75) 60%, rgb(14 19 23 / 0.2));
+}
+
+.panel {
+  max-width: 44rem;
+}
+
+.heading {
+  font-size: var(--text-3xl);
+  font-stretch: 112%;
+  line-height: 1.02;
+  letter-spacing: var(--tracking-display);
+}
+
+.body {
+  margin-bottom: var(--space-6);
+  font-size: var(--text-lg);
+  color: var(--color-fg-muted);
+}

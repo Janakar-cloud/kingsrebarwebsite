@@ -1,0 +1,99 @@
+.button {
+  --button-bg: var(--color-accent);
+  --button-fg: var(--color-on-accent);
+  --button-border: var(--color-accent);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  min-height: var(--tap-target);
+  padding: 0.7rem 1.4rem;
+  border: 1.5px solid var(--button-border);
+  border-radius: var(--radius-pill);
+  background: var(--button-bg);
+  color: var(--button-fg);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.button:hover {
+  color: var(--button-fg);
+  text-decoration: none;
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+.button[aria-disabled="true"] {
+  cursor: progress;
+  opacity: 0.8;
+}
+
+.lg {
+  min-height: 3.375rem;
+  padding: 0.95rem 1.85rem;
+  font-size: var(--text-base);
+}
+
+.primary:hover {
+  --button-bg: var(--color-accent-hover);
+  --button-border: var(--color-accent-hover);
+  box-shadow: 0 10px 30px -10px rgb(224 103 47 / 0.6);
+}
+
+.secondary {
+  --button-bg: transparent;
+  --button-fg: var(--color-fg);
+  --button-border: var(--color-line-strong);
+}
+
+.secondary:hover {
+  --button-bg: var(--color-fg);
+  --button-fg: var(--color-bg);
+  --button-border: var(--color-fg);
+}
+
+.ghost {
+  --button-bg: transparent;
+  --button-fg: var(--color-fg);
+  --button-border: transparent;
+  padding-inline: var(--space-2);
+}
+
+.ghost:hover {
+  --button-fg: var(--color-accent-text);
+}
+
+.arrow {
+  flex: none;
+  font-size: 1.15em;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.button:hover .arrow,
+.button:focus-visible .arrow {
+  transform: translateX(0.25rem);
+}
+
+@media (forced-colors: active) {
+  .button {
+    border-color: ButtonText;
+  }
+}
