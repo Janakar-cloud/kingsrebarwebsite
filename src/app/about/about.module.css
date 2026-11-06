@@ -42,7 +42,7 @@
   height: auto;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  object-position: 50% 10%;
+  object-position: 50% 50%;
   border-radius: var(--radius-lg);
   background: var(--color-graphic-base);
   box-shadow: var(--shadow-lg);
@@ -117,11 +117,11 @@
 
 @keyframes about-crop {
   from {
-    object-position: 50% 8%;
+    object-position: 50% 46%;
   }
 
   to {
-    object-position: 50% 22%;
+    object-position: 50% 54%;
   }
 }
 

@@ -14,11 +14,11 @@ export const about = {
   summary:
     "Kings Rebar is a rebar detailing and estimation company established in 2015. The company was founded by K. Vigneshwaran and Bala Vigneshwaran and is headquartered in Aruppukottai, Tamil Nadu.",
   heroImage: {
-    src: "/images/founder-vigneshwaran.jpg",
+    src: "/images/founder-ceo.jpg",
     alt: "K. Vigneshwaran, founder of Kings Rebar",
-    width: 768,
-    height: 1344,
-    objectPosition: "50% 12%",
+    width: 1086,
+    height: 1448,
+    objectPosition: "50% 10%",
   } satisfies ImageAsset,
   history: {
     heading: "Our story",
@@ -32,10 +32,10 @@ export const about = {
     name: "K. Vigneshwaran",
     role: "Founder",
     image: {
-      src: "/images/founder-vigneshwaran.jpg",
+      src: "/images/founder-ceo.jpg",
       alt: "Portrait of K. Vigneshwaran, founder of Kings Rebar",
-      width: 768,
-      height: 1344,
+      width: 1086,
+      height: 1448,
     } satisfies ImageAsset,
   },
   locations: {

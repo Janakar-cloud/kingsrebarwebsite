@@ -28,10 +28,16 @@ export function PageHero({ route, title, intro, summary, motif, image, storytell
   const position = navigation.findIndex((item) => item.href === route) + 1;
   const photo = isApproved(image) ? image : null;
   const showWhole = Boolean(photo?.showWhole);
+  const portrait = Boolean(photo && photo.height > photo.width && !showWhole);
   const visualStyle: CSSProperties = {
     ...(storytelling ? enter(0) : {}),
     ...(showWhole && photo ? { aspectRatio: `${photo.width} / ${photo.height}` } : {}),
   };
+  const visualClass = showWhole
+    ? `${styles.visual} ${styles.whole}`
+    : portrait
+      ? `${styles.visual} ${styles.portrait}`
+      : styles.visual;
 
   return (
     <section className={`${styles.hero} grain`} data-tone="dark" aria-labelledby="page-title">
@@ -53,7 +59,7 @@ export function PageHero({ route, title, intro, summary, motif, image, storytell
           </div>
         </div>
         <div
-          className={showWhole ? `${styles.visual} ${styles.whole}` : styles.visual}
+          className={visualClass}
           data-enter={storytelling ? "unmask" : "settle"}
           style={visualStyle}
         >

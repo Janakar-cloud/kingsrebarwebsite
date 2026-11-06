@@ -86,7 +86,7 @@ and are referenced from `src/content/` only after they are supplied.
 | -------------------------- | -------------------------------------- | -------------------------------------------- |
 | Logo                       | `site.assets.logo`                     | Transparent PNG lockup at `/images/logo.png` |
 | Lion mark                  | `site.assets.mark`                     | Circular seal on the home hero               |
-| Founder portrait           | `about.founder.image`                  | `/images/founder-vigneshwaran.jpg`           |
+| Founder portrait           | `about.founder.image`                  | `/images/founder-ceo.jpg`                    |
 | Page heroes                | `heroImage` in each `src/content/pages/*.ts` | `kr-services.jpg`, `kr-careers.jpg`, `kr-contact.png`, `hero-industries.jpg` |
 | Locations map              | `locationsMap` in `src/content/locations.ts` (Home and About) | `/images/tamil-nadu-offices-map.png` |
 | Home hero                  | `home.hero.image`                      | Optional photo; until then, rebar graphic + seal |

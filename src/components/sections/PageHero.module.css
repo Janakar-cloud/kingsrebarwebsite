@@ -100,6 +100,21 @@
 }
 
 /*
+ * Portrait photographs (founder, similar). Keep the desktop 5/4 panel so the face
+ * sits beside the title; on small screens skip the 16/9 strip that only showed a crop.
+ */
+.portrait .parallax {
+  inset: -4% 0;
+}
+
+@media (max-width: 59.99rem) {
+  .portrait {
+    aspect-ratio: 4 / 5;
+    max-height: none;
+  }
+}
+
+/*
  * Images that must be shown whole (banners with baked-in text). The frame takes the
  * image's own aspect ratio from an inline style, so nothing is cropped. The extra
  * parallax overscan, the drift and the darkening gradient would all hide part of it.

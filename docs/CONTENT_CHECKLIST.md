@@ -12,7 +12,7 @@ client’s approval.
 
 - [x] Approved logo lockup (`public/images/logo.png`, wired in `site.assets.logo`)
 - [x] Browser icon from the lion mark (`src/app/icon.png`, `src/app/apple-icon.png`)
-- [x] Founder portrait of K. Vigneshwaran on About (`public/images/founder-vigneshwaran.jpg`)
+- [x] Founder portrait of K. Vigneshwaran on About (`public/images/founder-ceo.jpg`)
 - [x] Social sharing image generated from the approved logo (`src/app/opengraph-image.tsx`). LinkedIn banners stay unused (wrong aspect ratio)
 - [x] Image plan approved 22 Oct 2026: keep the live set (logo, lion mark, founder portrait, original SVG steel). Do not add generated people, offices, projects, or certificates
 - [ ] Optional hero photograph showing real Kings Rebar imagery, 1600×1000 (`home.hero.image`). Until then the rebar graphic plus the lion seal is the published hero
