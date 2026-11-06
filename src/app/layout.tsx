@@ -28,8 +28,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang={site.language} className={fontVariables}>
-      <body>
+    <html lang={site.language} className={fontVariables} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <SiteHeader />
         <main id="main-content" tabIndex={-1}>
           {children}
