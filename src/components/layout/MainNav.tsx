@@ -51,7 +51,8 @@ export function MainNav({ items }: { items: readonly NavItem[] }) {
         <span className={styles.menuIcon} aria-hidden="true" data-open={open} />
         <span>Menu</span>
       </button>
-      <div className={styles.backdrop} data-open={open} aria-hidden="true" />
+      {/* The dimmed area sits inside <nav>, so it must close the menu itself. Keyboard users have Escape. */}
+      <div className={styles.backdrop} data-open={open} aria-hidden="true" onClick={close} />
       <ul id={listId} className={styles.navList} data-open={open}>
         {items.map((item, index) => {
           const active = isActiveRoute(pathname, item.href);

@@ -2,7 +2,7 @@
  * Motion system. Everything here is progressive enhancement:
  * - Content is fully visible by default. RevealObserver only hides elements
  *   that start below the viewport, so nothing on screen ever flashes.
- * - Entrance keyframes are CSS only and settle within about one second.
+ * - Entrance keyframes are CSS only and settle on a slow, even pace.
  * - prefers-reduced-motion removes movement, stagger and page transitions.
  */
 @layer motion {
@@ -66,8 +66,8 @@
     /* Scroll reveals: one shared observer toggles data-reveal-state. */
     [data-reveal] {
       transition:
-        opacity var(--duration-slow) var(--ease-out),
-        transform var(--duration-slow) var(--ease-out);
+        opacity var(--duration-slower) var(--ease-out),
+        transform var(--duration-slower) var(--ease-out);
       transition-delay: calc(min(var(--reveal-index, 0), 6) * var(--stagger));
     }
 
@@ -87,8 +87,8 @@
     [data-reveal="clip"] {
       clip-path: inset(0);
       transition:
-        clip-path var(--duration-slow) var(--ease-out),
-        opacity var(--duration-slow) var(--ease-out);
+        clip-path var(--duration-slower) var(--ease-out),
+        opacity var(--duration-slower) var(--ease-out);
     }
 
     [data-reveal="clip"][data-reveal-state="pending"] {
@@ -130,14 +130,14 @@
 
   ::view-transition-old(.page-exit) {
     animation:
-      var(--duration-fast) var(--ease-in) both kr-fade-out,
-      var(--duration-fast) var(--ease-in) both kr-lift-out;
+      var(--duration-slow) var(--ease-in) both kr-fade-out,
+      var(--duration-slow) var(--ease-in) both kr-lift-out;
   }
 
   ::view-transition-new(.page-enter) {
     animation:
-      var(--duration-base) var(--ease-out) var(--duration-instant) both kr-fade-in,
-      var(--duration-slow) var(--ease-out) both kr-lift-in;
+      var(--duration-slow) var(--ease-out) var(--duration-fast) both kr-fade-in,
+      var(--duration-slower) var(--ease-out) both kr-lift-in;
   }
 
   /* The header and page chrome stay put while the page content moves. */

@@ -34,6 +34,7 @@ export default function ContactPage() {
         intro={contact.intro}
         summary={contact.summary}
         motif={routeMotifs[routes.contact]}
+        image={contact.heroImage}
       />
 
       <Section>
@@ -77,7 +78,7 @@ export default function ContactPage() {
               <h2 id="details-heading" className={styles.heading}>
                 {contact.detailsHeading}
               </h2>
-              <ContactDetails />
+              <ContactDetails columns />
               {isPending(channels.map) && <PendingNote note={channels.map.pending} as="div" />}
             </aside>
           )}

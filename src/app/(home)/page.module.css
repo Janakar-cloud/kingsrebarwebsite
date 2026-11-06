@@ -1,0 +1,25 @@
+.map {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1.25rem 1.5rem rgb(11 15 18 / 0.28));
+}
+
+.places {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.placeLabel {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+.placeList {
+  margin: 0;
+}

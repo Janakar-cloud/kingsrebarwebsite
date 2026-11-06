@@ -1,5 +1,5 @@
 import { headquarters } from "./locations";
-import { pending, type Approved, type ImageAsset } from "./types";
+import { pending, type ImageAsset } from "./types";
 
 /**
  * Site-wide configuration and company details.
@@ -88,11 +88,12 @@ export const site = {
     topics: ["Project enquiry", "Careers", "Other"],
     /**
      * Privacy notice shown above the submit button. The form is not shown in
-     * production builds, and the server refuses submissions, until this is approved.
+     * production builds, and the server refuses submissions, until this is set.
+     * This is the operational UAT wording (who receives the data and why). A
+     * lawyer-reviewed policy can replace it before public launch.
      */
-    privacyNotice: pending(
-      "Client-approved privacy notice explaining who receives enquiry data, why it is collected, how long it is kept, and how to request deletion. Link to a full privacy policy if one exists.",
-    ) as Approved<string>,
+    privacyNotice:
+      "Your enquiry is sent by email to info@kingsrebar.com so the Kings Rebar team can reply. We use the details you submit only to respond to this enquiry. To ask for your information to be deleted, email info@kingsrebar.com.",
     successHeading: "Thank you, your enquiry has been received",
     successMessage: "The team will review your enquiry and follow up if it can assist.",
     failureMessage: "Something went wrong. Your details are still in the form, so you can try again.",

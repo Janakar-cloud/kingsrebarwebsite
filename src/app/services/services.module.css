@@ -42,34 +42,3 @@
 .summary {
   color: var(--color-fg-muted);
 }
-
-.items {
-  display: grid;
-  gap: var(--space-3);
-  margin: var(--space-2) 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.items li {
-  position: relative;
-  padding-left: 1.25rem;
-  color: var(--color-fg);
-}
-
-.items li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.65em;
-  width: 0.45rem;
-  height: 0.45rem;
-  border-radius: 50%;
-  background: var(--color-accent);
-}
-
-.enquire {
-  margin-top: auto;
-  justify-content: flex-start;
-  padding-inline: 0;
-}

@@ -7,11 +7,13 @@ const isProduction = process.env.NODE_ENV === "production";
 
 function readSiteUrl(): URL | null {
   const raw = process.env.SITE_URL?.trim();
-  if (!raw) return null;
+  const fallback = process.env.VERCEL_URL?.trim() ? `https://${process.env.VERCEL_URL.trim()}` : "";
+  const value = raw || fallback;
+  if (!value) return null;
   try {
-    return new URL(raw);
+    return new URL(value);
   } catch {
-    throw new Error(`SITE_URL must be an absolute URL such as https://www.example.com (received "${raw}")`);
+    throw new Error(`SITE_URL must be an absolute URL such as https://www.example.com (received "${value}")`);
   }
 }
 

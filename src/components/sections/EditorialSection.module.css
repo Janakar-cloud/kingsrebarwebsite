@@ -2,6 +2,47 @@
   margin: 0;
 }
 
+/* Photo background: the section forms its own stacking context so the photo
+   and scrim sit behind the content without a z-index on the content. */
+.withBackdrop {
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: var(--section-y);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.backdropImage {
+  object-fit: cover;
+}
+
+/* Scrim: strongest behind the reading column so body copy keeps AA contrast. */
+.backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-bg-sunken) 66%, transparent),
+    color-mix(in srgb, var(--color-bg-sunken) 86%, transparent) 55%
+  );
+}
+
+@media (max-width: 55.99rem) {
+  .backdrop::after {
+    background: color-mix(in srgb, var(--color-bg-sunken) 88%, transparent);
+  }
+}
+
+.headingBlock {
+  display: grid;
+  gap: var(--space-5);
+}
+
 @media (min-width: 56rem) {
   .align:has(.aside :global(.eyebrow)) {
     grid-template-rows: auto auto;
@@ -27,7 +68,7 @@
 }
 
 .after {
-  margin-top: var(--space-8);
+  margin-top: var(--space-6);
 }
 
 .body > * + * {

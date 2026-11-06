@@ -259,7 +259,7 @@ export function EnquiryForm(props: Props) {
         <div ref={outcomeRef} tabIndex={-1} className="pending" role="status">
           <span className="pending__label">Development only</span>
           Your enquiry passed validation but was <strong>not sent</strong>: no delivery destination is configured
-          (set ENQUIRY_WEBHOOK_URL). Nothing was stored.
+          (set OUTLOOK_SMTP_PASSWORD, or Microsoft Graph app credentials, or ENQUIRY_WEBHOOK_URL). Nothing was stored.
         </div>
       )}
 

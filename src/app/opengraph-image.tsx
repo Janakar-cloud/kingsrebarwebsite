@@ -3,6 +3,10 @@ import { join } from "node:path";
 
 import { ImageResponse } from "next/og";
 
+// ImageResponse renders through Satori, which only understands plain <img>
+// elements, so next/image is not an option in this file.
+/* eslint-disable @next/next/no-img-element */
+
 export const alt = "Kings Rebar, rebar detailing and estimation";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -30,6 +34,7 @@ export default async function OpenGraphImage() {
       >
         <img
           src={mark}
+          alt=""
           width={540}
           height={540}
           style={{
@@ -49,7 +54,7 @@ export default async function OpenGraphImage() {
             padding: "72px 80px",
           }}
         >
-          <img src={logo} width={460} height={272} />
+          <img src={logo} alt="Kings Rebar" width={460} height={272} />
           <div
             style={{
               display: "flex",

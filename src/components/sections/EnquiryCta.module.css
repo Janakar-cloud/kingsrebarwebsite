@@ -2,7 +2,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-block: var(--section-y);
+  padding-block: calc(var(--section-y) * 0.85);
   background: var(--steel-900);
   color: var(--color-fg);
 }

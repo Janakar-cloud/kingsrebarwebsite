@@ -19,7 +19,7 @@ type Props = {
    * pair — two-step stagger, used for mission and vision.
    */
   motion?: "items" | "group" | "pair";
-  /** row keeps every item on one line. Used for the five offices. line is the same for longer card copy. */
+  /** row keeps every item on one line (two columns on phones). Used for the five offices. line is the same for longer card copy. */
   layout?: "grid" | "row" | "line";
   className?: string;
 };

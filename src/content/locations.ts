@@ -2,7 +2,7 @@
  * Shared operating locations. Used on About, Careers and Contact so a later
  * address or branch change only needs to happen here.
  */
-import type { PostalAddress } from "./types";
+import type { ImageAsset, PostalAddress } from "./types";
 
 export const headquarters = {
   title: "Aruppukottai",
@@ -47,6 +47,18 @@ export const branches = [
   { title: "Cheyyar", description: "Branch office" },
   { title: "Coimbatore", description: "Branch office" },
 ] as const;
+
+/**
+ * Client-supplied map of the Tamil Nadu offices, shared by Home and About.
+ * The source file (KR_location.png) had a checkerboard baked into its pixels;
+ * this copy has the grid removed so it sits on a transparent background.
+ */
+export const locationsMap = {
+  src: "/images/tamil-nadu-offices-map.png",
+  alt: "Map of Tamil Nadu showing Kings Rebar offices in Aruppukottai, Salem, Karur, Cheyyar, and Coimbatore",
+  width: 875,
+  height: 710,
+} satisfies ImageAsset;
 
 export const markets = {
   heading: "Project markets",

@@ -22,13 +22,26 @@ export default function CareersPage() {
       />
 
       {shouldRender(careers.learn.paragraphs) && (
-        <EditorialSection id="learn-heading" eyebrow="Development" heading={careers.learn.heading}>
+        <EditorialSection
+          id="learn-heading"
+          eyebrow="Development"
+          heading={careers.learn.heading}
+          backdrop={careers.learn.backdrop}
+        >
           <Paragraphs value={careers.learn.paragraphs} />
+          <p>
+            <strong>{careers.learn.closing}</strong>
+          </p>
         </EditorialSection>
       )}
 
       {shouldRender(careers.team.paragraphs) && (
-        <EditorialSection id="team-heading" eyebrow="Team" heading={careers.team.heading} tone="sunken">
+        <EditorialSection
+          id="team-heading"
+          eyebrow="Team"
+          heading={careers.team.heading}
+          backdrop={careers.team.backdrop}
+        >
           <Paragraphs value={careers.team.paragraphs} />
         </EditorialSection>
       )}

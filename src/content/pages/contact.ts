@@ -1,5 +1,5 @@
 import { headquarters, salemBranch } from "../locations";
-import type { PageMeta } from "../types";
+import type { ImageAsset, PageMeta } from "../types";
 
 export const contact = {
   meta: {
@@ -12,6 +12,13 @@ export const contact = {
     "Send Kings Rebar a project or career enquiry. Include enough detail for the team to understand what you need and how to follow up.",
   summary:
     "Send Kings Rebar a project or career enquiry. Include enough detail for the team to understand what you need and how to follow up.",
+  heroImage: {
+    src: "/images/kr-contact.png",
+    alt: "Shop drawings, a mechanical pencil, and sample reinforcing bars arranged on a desk",
+    width: 778,
+    height: 630,
+    objectPosition: "50% 42%",
+  } satisfies ImageAsset,
   formHeading: "Send an enquiry",
   detailsHeading: "Contact details",
   officesHeading: "Offices",

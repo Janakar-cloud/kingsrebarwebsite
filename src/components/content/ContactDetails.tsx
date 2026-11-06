@@ -36,77 +36,78 @@ function fieldNote(value: unknown) {
 }
 
 /** Approved public contact channels. Pending channels are omitted (or flagged in preview builds). */
-export function ContactDetails({ className }: { className?: string }) {
+export function ContactDetails({ className, columns = false }: { className?: string; columns?: boolean }) {
   const email = visible(contact.email);
   const phone = visible(contact.phone);
   const address = visible(contact.address);
   const hours = visible(contact.hours);
   const website = visible(contact.website);
 
-  const entries: { term: string; details: ReactNode[] }[] = [];
+  const entry = (term: string, details: ReactNode[]) => (
+    <div key={term} className={styles.entry}>
+      <dt className={styles.term}>{term}</dt>
+      {details.map((detail, index) => (
+        <dd key={index}>{detail}</dd>
+      ))}
+    </div>
+  );
 
-  if (email) {
-    entries.push({
-      term: "Email",
-      details: [
-        <a key="email" href={`mailto:${email}`}>
-          {email}
-        </a>,
-      ],
-    });
-  }
-  if (phone) {
-    entries.push({
-      term: "Phone",
-      details: [
-        <a key="phone" href={telHref(phone)}>
-          {phone}
-        </a>,
-      ],
-    });
-  }
-  if (address) {
-    entries.push({
-      term: "Address",
-      details: [
-        <address key="address">
-          {address.lines.map((line) => (
-            <span key={line} className={styles.line}>
-              {line}
-            </span>
-          ))}
-        </address>,
-      ],
-    });
-  }
-  if (hours) {
-    entries.push({ term: "Business hours", details: hours.map((line) => line) });
-  }
-  if (website) {
-    const host = website.replace(/^https?:\/\//, "");
-    entries.push({
-      term: "Website",
-      details: [
-        <a key="website" href={website} rel="noopener noreferrer">
-          {host}
-        </a>,
-      ],
-    });
-  }
+  const reach = [
+    email
+      ? entry("Email", [
+          <a key="email" href={`mailto:${email}`}>
+            {email}
+          </a>,
+        ])
+      : null,
+    phone
+      ? entry("Phone", [
+          <a key="phone" href={telHref(phone)}>
+            {phone}
+          </a>,
+        ])
+      : null,
+  ].filter(Boolean);
+
+  const location = address
+    ? [
+        entry("Address", [
+          <address key="address">
+            {address.lines.map((line) => (
+              <span key={line} className={styles.line}>
+                {line}
+              </span>
+            ))}
+          </address>,
+        ]),
+      ]
+    : [];
+
+  const host = website?.replace(/^https?:\/\//, "");
+  const extra = [
+    hours ? entry("Business hours", hours.map((line) => line)) : null,
+    website
+      ? entry("Website", [
+          <a key="website" href={website} rel="noopener noreferrer">
+            {host}
+          </a>,
+        ])
+      : null,
+  ].filter(Boolean);
+
+  const groups = columns ? [reach, location, extra].filter((group) => group.length > 0) : [[...reach, ...location, ...extra]];
 
   return (
     <div className={cn(styles.details, className)}>
-      {entries.length > 0 && (
-        <dl className={styles.list}>
-          {entries.map((entry) => (
-            <div key={entry.term} className={styles.entry}>
-              <dt className={styles.term}>{entry.term}</dt>
-              {entry.details.map((detail, index) => (
-                <dd key={index}>{detail}</dd>
-              ))}
-            </div>
+      {/* A <dl> may only contain <dt>/<dd> or <div> wrappers around them, so each column is its own list. */}
+      {groups.some((group) => group.length > 0) && (
+        <div className={columns ? cn(styles.list, styles.columns) : undefined}>
+          {groups.map((group, index) => (
+            <dl key={index} className={columns ? styles.column : styles.list}>
+              {group}
+            </dl>
           ))}
-        </dl>
+        </div>
       )}
       {[contact.email, contact.phone, contact.address, contact.hours, contact.website].map(fieldNote)}
     </div>

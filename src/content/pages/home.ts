@@ -1,3 +1,4 @@
+import { branches, locationsMap, markets } from "../locations";
 import { routes } from "../routes";
 import { pending, type Approved, type ImageAsset, type ListItem, type PageMeta } from "../types";
 
@@ -107,11 +108,20 @@ export const home = {
     ] satisfies readonly { title: string; detail: string; image: ImageAsset }[],
   },
   locations: {
-    heading: "Working across project teams",
+    heading: "Where we work",
+    map: locationsMap,
     paragraphs: [
-      "Kings Rebar is based in Tamil Nadu and has offices in Aruppukottai, Salem, Karur, Cheyyar, and Coimbatore. The company also works with clients in the United States and the United Kingdom.",
+      "Kings Rebar is based in Tamil Nadu, with offices in Aruppukottai, Salem, Karur, Cheyyar, and Coimbatore. These locations form the company’s presence across the state.",
+      "Kings Rebar also works with clients in the United States and the United Kingdom. For each engagement, the team works from the project information and scope provided by the client, coordinating the requested rebar detailing and estimation work around those requirements.",
     ],
-    cta: { label: "About Kings Rebar", href: routes.about },
+    offices: {
+      heading: "Tamil Nadu offices",
+      items: branches.map((branch) => branch.title),
+    },
+    markets: {
+      heading: "Client markets",
+      items: markets.items.map((market) => market.title),
+    },
   },
   cta: {
     heading: "Tell us about your project",

@@ -6,7 +6,7 @@
   min-height: min(calc(100svh - var(--header-height)), 62rem);
   min-height: max(36rem, min(calc(100svh - var(--header-height)), 62rem));
   overflow: hidden;
-  padding-block: 1.5rem var(--space-8);
+  padding-block: 1.5rem var(--space-6);
   background: var(--steel-950);
   color: var(--color-fg);
 }

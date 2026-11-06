@@ -77,11 +77,6 @@ export function shouldRender(...values: Approved<unknown>[]): boolean {
   return showPlaceholders || values.some((value) => isApproved(value));
 }
 
-/** True when any of the values has approved content, regardless of preview mode. */
-export function hasApproved(...values: Approved<unknown>[]): boolean {
-  return values.some((value) => isApproved(value));
-}
-
 export function PreviewBanner() {
   if (!showPlaceholders) return null;
   return (

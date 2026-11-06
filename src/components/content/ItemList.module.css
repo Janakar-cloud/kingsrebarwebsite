@@ -30,11 +30,15 @@
   text-transform: uppercase;
 }
 
+/* On phones the strip wraps into two columns. A sideways-scrolling strip hides items
+   off-screen and cannot be reached by keyboard. */
 @media (max-width: 47.99rem) {
   .row {
-    overflow-x: auto;
-    overflow-y: hidden;
-    grid-template-columns: repeat(var(--columns, 5), minmax(8.5rem, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .row .item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 

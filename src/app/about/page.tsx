@@ -7,7 +7,6 @@ import { Reveal } from "@/components/motion/Reveal";
 import { EditorialSection } from "@/components/sections/EditorialSection";
 import { EnquiryCta } from "@/components/sections/EnquiryCta";
 import { PageHero } from "@/components/sections/PageHero";
-import { ButtonLink } from "@/components/ui/Button";
 import { Section } from "@/components/ui/Section";
 import { about } from "@/content/pages/about";
 import { routes } from "@/content/routes";
@@ -17,7 +16,7 @@ import styles from "./about.module.css";
 export const metadata = pageMetadata(about.meta, routes.about, { absoluteTitle: true });
 
 export default function AboutPage() {
-  const { history, founder, approach, people, locations, cta } = about;
+  const { history, founder, locations, cta } = about;
 
   return (
     <>
@@ -59,18 +58,23 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <EditorialSection id="approach-heading" eyebrow="Approach" heading={approach.heading} tone="sunken">
-        <Paragraphs value={approach.paragraphs} />
-      </EditorialSection>
-
-      <EditorialSection id="people-heading" eyebrow="People" heading={people.heading}>
-        <Paragraphs value={people.paragraphs} />
-        <ButtonLink href={people.cta.href} arrow>
-          {people.cta.label}
-        </ButtonLink>
-      </EditorialSection>
-
-      <EditorialSection id="locations-heading" eyebrow="Locations" heading={locations.heading} reveal="clip">
+      <EditorialSection
+        id="locations-heading"
+        eyebrow="Locations"
+        heading={locations.heading}
+        tone="sunken"
+        reveal="clip"
+        media={
+          <Image
+            src={locations.map.src}
+            alt={locations.map.alt}
+            width={locations.map.width}
+            height={locations.map.height}
+            sizes="(min-width: 56rem) 22vw, 92vw"
+            className={styles.map}
+          />
+        }
+      >
         <Text value={locations.intro} className="lead" />
         <ItemList items={locations.items} motion="group" layout="row" />
       </EditorialSection>

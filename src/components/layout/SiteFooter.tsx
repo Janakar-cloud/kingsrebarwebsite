@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 import { ContactDetails, hasApprovedContactDetails } from "@/components/content/ContactDetails";
 import { Icon } from "@/components/ui/Icon";
@@ -34,9 +35,9 @@ export function SiteFooter() {
         </nav>
 
         {showContact && (
-          <div className={styles.column}>
+          <div className={`${styles.column} ${styles.contact}`}>
             <h2 className={styles.heading}>Contact</h2>
-            <ContactDetails />
+            <ContactDetails columns />
             {site.social.length > 0 && (
               <ul className={styles.links} aria-label="Social media">
                 {site.social.map((profile) => (
@@ -52,8 +53,16 @@ export function SiteFooter() {
         )}
       </div>
 
-      <p className={styles.giant} aria-hidden="true">
-        {site.companyName}
+      <p className={styles.giant} aria-hidden="true" data-reveal="wordmark">
+        {Array.from(site.companyName).map((character, index) =>
+          character === " " ? (
+            " "
+          ) : (
+            <span key={index} className={styles.letter} style={{ "--letter": index } as CSSProperties}>
+              {character}
+            </span>
+          ),
+        )}
       </p>
 
       <div className={`container ${styles.legal}`}>

@@ -49,6 +49,11 @@ export type ImageAsset = {
   height: number;
   /** CSS object-position, used when the frame crops the image. */
   objectPosition?: string;
+  /**
+   * Hero frames normally crop photos to fit. Set this for images that must not be cut,
+   * such as banners with text baked in: the frame then takes the image's own proportions.
+   */
+  showWhole?: boolean;
 };
 
 export type PostalAddress = {
@@ -63,35 +68,6 @@ export type PostalAddress = {
   addressCountry?: string;
 };
 
-export type TextSection = {
-  heading: string;
-  paragraphs: Approved<readonly string[]>;
-};
-
 export type FlagCode = "US" | "GB";
 
 export type ListItem = { title: string; description?: string; flag?: FlagCode };
-
-export type ListSection = {
-  heading: string;
-  intro?: Approved<string>;
-  items: Approved<readonly ListItem[]>;
-};
-
-export type Offer = {
-  name: string;
-  summary: string;
-  items: string[];
-};
-
-export type Application = ListItem & { description?: string };
-
-export type Role = {
-  title: string;
-  requirements: string[];
-};
-
-export type ProofPoint = {
-  value: string;
-  label: string;
-};

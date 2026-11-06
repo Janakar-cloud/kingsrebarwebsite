@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { ItemList } from "@/components/content/ItemList";
 import { Paragraphs, shouldRender } from "@/components/content/Pending";
 import { EditorialSection } from "@/components/sections/EditorialSection";
@@ -12,6 +14,7 @@ import { home } from "@/content/pages/home";
 import { navigation, routes } from "@/content/routes";
 import { pageMetadata } from "@/lib/seo";
 import { HomeHero } from "./HomeHero";
+import styles from "./page.module.css";
 
 export const metadata = pageMetadata(home.meta, routes.home, { absoluteTitle: true });
 
@@ -42,7 +45,7 @@ export default function HomePage() {
           id="process-heading"
           eyebrow="How we work"
           heading={process.heading}
-          reveal="clip"
+          reveal="up"
           after={<ProcessFlow steps={process.steps} loopNote={process.loopNote} />}
         >
           <Paragraphs value={process.paragraphs} />
@@ -50,11 +53,33 @@ export default function HomePage() {
       )}
 
       {shouldRender(locations.paragraphs) && (
-        <EditorialSection id="locations-heading" eyebrow="Locations" heading={locations.heading} tone="sunken">
+        <EditorialSection
+          id="locations-heading"
+          eyebrow="Locations"
+          heading={locations.heading}
+          tone="sunken"
+          media={
+            <Image
+              src={locations.map.src}
+              alt={locations.map.alt}
+              width={locations.map.width}
+              height={locations.map.height}
+              sizes="(min-width: 56rem) 22vw, 92vw"
+              className={styles.map}
+            />
+          }
+        >
           <Paragraphs value={locations.paragraphs} />
-          <ButtonLink href={locations.cta.href} arrow>
-            {locations.cta.label}
-          </ButtonLink>
+          <div className={styles.places}>
+            <div>
+              <h3 className={styles.placeLabel}>{locations.offices.heading}</h3>
+              <p className={styles.placeList}>{locations.offices.items.join(" · ")}</p>
+            </div>
+            <div>
+              <h3 className={styles.placeLabel}>{locations.markets.heading}</h3>
+              <p className={styles.placeList}>{locations.markets.items.join(" · ")}</p>
+            </div>
+          </div>
         </EditorialSection>
       )}
 

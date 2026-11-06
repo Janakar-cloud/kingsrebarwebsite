@@ -82,7 +82,7 @@
     --space-7: 3rem;
     --space-8: 4.5rem;
     --space-9: 6rem;
-    --section-y: clamp(4rem, 2.5rem + 6vw, 9rem);
+    --section-y: clamp(2.25rem, 1.35rem + 2.6vw, 4rem);
     --page-gutter: clamp(1.25rem, 4vw, 3rem);
     --page-max: 80rem;
     --header-height: 4.5rem;
@@ -98,11 +98,11 @@
     --shadow-lg: 0 10px 24px -8px rgb(11 15 18 / 0.18), 0 32px 64px -16px rgb(11 15 18 / 0.28);
 
     /* Motion. All timings in the codebase derive from these. */
-    --duration-instant: 120ms;
-    --duration-fast: 200ms;
-    --duration-base: 320ms;
-    --duration-slow: 640ms;
-    --duration-slower: 960ms;
+    --duration-instant: 180ms;
+    --duration-fast: 320ms;
+    --duration-base: 560ms;
+    --duration-slow: 1100ms;
+    --duration-slower: 1800ms;
     --ease-standard: cubic-bezier(0.2, 0, 0, 1);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
@@ -110,8 +110,8 @@
     --distance-sm: 0.5rem;
     --distance-md: 1.5rem;
     --distance-lg: 3rem;
-    --stagger: 80ms;
-    --stagger-lg: 140ms;
+    --stagger: 140ms;
+    --stagger-lg: 220ms;
   }
 
   [data-tone="light"] {

@@ -26,6 +26,12 @@ const enter = (index: number) => ({ "--enter-index": index }) as CSSProperties;
 /** Title band for inner pages: breadcrumb, page index, heading, lead and a visual panel. */
 export function PageHero({ route, title, intro, summary, motif, image, storytelling = false }: Props) {
   const position = navigation.findIndex((item) => item.href === route) + 1;
+  const photo = isApproved(image) ? image : null;
+  const showWhole = Boolean(photo?.showWhole);
+  const visualStyle: CSSProperties = {
+    ...(storytelling ? enter(0) : {}),
+    ...(showWhole && photo ? { aspectRatio: `${photo.width} / ${photo.height}` } : {}),
+  };
 
   return (
     <section className={`${styles.hero} grain`} data-tone="dark" aria-labelledby="page-title">
@@ -46,17 +52,21 @@ export function PageHero({ route, title, intro, summary, motif, image, storytell
             )}
           </div>
         </div>
-        <div className={styles.visual} data-enter={storytelling ? "unmask" : "settle"} style={storytelling ? enter(0) : undefined}>
+        <div
+          className={showWhole ? `${styles.visual} ${styles.whole}` : styles.visual}
+          data-enter={storytelling ? "unmask" : "settle"}
+          style={visualStyle}
+        >
           <div className={styles.parallax}>
-            {isApproved(image) ? (
+            {photo ? (
               <Image
-                src={image.src}
-                alt={image.alt}
+                src={photo.src}
+                alt={photo.alt}
                 fill
                 sizes="(min-width: 60rem) 42vw, 92vw"
                 priority
                 className={styles.photo}
-                style={image.objectPosition ? { objectPosition: image.objectPosition } : undefined}
+                style={photo.objectPosition ? { objectPosition: photo.objectPosition } : undefined}
               />
             ) : (
               <Motif variant={motif} className={styles.motif} />

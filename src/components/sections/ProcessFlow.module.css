@@ -27,12 +27,6 @@
   stroke-dasharray: 5 6;
 }
 
-.tracer {
-  fill: var(--color-accent);
-  stroke: var(--color-bg);
-  stroke-width: 2;
-}
-
 .steps {
   position: relative;
   z-index: 1;
@@ -44,6 +38,7 @@
 }
 
 .step {
+  position: relative;
   min-width: 0;
 }
 
@@ -55,7 +50,6 @@
   background: var(--color-bg-raised);
   box-shadow: var(--shadow-sm);
   transition:
-    transform var(--duration-base) var(--ease-out),
     box-shadow var(--duration-base) var(--ease-out),
     border-color var(--duration-fast) var(--ease-standard);
 }
@@ -78,11 +72,6 @@
   height: 100%;
   object-fit: cover;
   transform: scale(1);
-  transition: transform 1.15s var(--ease-out);
-}
-
-.step[data-reveal-state="pending"] .photo {
-  transform: scale(1.08);
 }
 
 .meta {
@@ -144,6 +133,18 @@
   pointer-events: none;
 }
 
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--space-6) / -2 - 1px);
+  width: 1.5px;
+  height: 0.85rem;
+  background: var(--color-accent);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
 @media (min-width: 56rem) {
   .steps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -179,6 +180,10 @@
     height: 100%;
   }
 
+  .step::after {
+    display: none;
+  }
+
   .loopCallout {
     display: none;
   }
@@ -189,6 +194,44 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .board[data-flow="idle"] .card {
+    opacity: 0;
+    transform: translate3d(0, var(--distance-md), 0);
+  }
+
+  .board[data-flow="idle"] .photo {
+    transform: scale(1.06);
+    clip-path: inset(7% 0 0);
+  }
+
+  .board[data-flow="idle"] .loopNote,
+  .board[data-flow="idle"] .loopCallout,
+  .board[data-flow="idle"] .step::after {
+    opacity: 0;
+  }
+
+  .board[data-flow="play"] .card {
+    animation: process-rise var(--duration-slow) var(--ease-out) both;
+    animation-delay: var(--flow-delay, 0ms);
+  }
+
+  .board[data-flow="play"] .photo {
+    animation: process-crop 0.72s var(--ease-out) both;
+    animation-delay: var(--flow-delay, 0ms);
+  }
+
+  .board[data-flow="play"] .loopCallout {
+    animation: process-fade var(--duration-base) var(--ease-out) both;
+    animation-delay: calc(var(--flow-delay, 0ms) + 80ms);
+  }
+
+  .board[data-flow="play"] .step::after {
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top;
+    animation: process-spine var(--duration-base) var(--ease-out) both;
+    animation-delay: calc(var(--flow-delay, 0ms) + 280ms);
+  }
+
   .wire,
   .loopWire {
     stroke-dasharray: 1;
@@ -199,27 +242,33 @@
     stroke-dasharray: 0.04 0.045;
   }
 
-  .board[data-wires="ready"] .wire,
-  .board[data-wires="ready"] .loopWire {
-    animation: process-draw 0.8s var(--ease-out) forwards;
+  .board[data-flow="play"] .wire,
+  .board[data-flow="play"] .loopWire {
+    animation: process-draw 0.42s var(--ease-out) forwards;
   }
 
-  .card:hover,
-  .card:focus-within {
-    transform: translate3d(0, -4px, 0);
+  .board[data-flow="idle"] .loopNote {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.4rem));
   }
 
-  .step[data-reveal-state="shown"] .card:hover .photo,
-  .step[data-reveal-state="shown"] .card:focus-within .photo {
-    transform: scale(1.05);
+  .board[data-flow="play"] .loopNote {
+    animation: process-label var(--duration-slow) var(--ease-out) both;
+    animation-delay: 1.82s;
   }
 
-  @supports (animation-timeline: view()) {
-    .photo {
-      animation: process-crop linear both;
-      animation-timeline: view();
-      animation-range: contain 0% contain 100%;
-    }
+  .board[data-flow="done"] .wire,
+  .board[data-flow="done"] .loopWire {
+    stroke-dashoffset: 0;
+  }
+
+  .board[data-flow="done"] .photo {
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .board[data-flow="done"] .card:hover .photo,
+  .board[data-flow="done"] .card:focus-within .photo {
+    transform: scale(1.04);
   }
 }
 
@@ -229,9 +278,35 @@
     stroke-dashoffset: 0;
     animation: none;
   }
+}
 
-  .tracer {
+@media (max-width: 55.99rem) {
+  .wires {
     display: none;
+  }
+}
+
+@keyframes process-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, var(--distance-md), 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes process-crop {
+  from {
+    transform: scale(1.06);
+    clip-path: inset(7% 0 0);
+  }
+
+  to {
+    transform: scale(1);
+    clip-path: inset(0);
   }
 }
 
@@ -241,12 +316,32 @@
   }
 }
 
-@keyframes process-crop {
+@keyframes process-fade {
   from {
-    object-position: 50% 42%;
+    opacity: 0;
+  }
+}
+
+@keyframes process-spine {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scaleY(0);
   }
 
   to {
-    object-position: 50% 58%;
+    opacity: 1;
+    transform: translateX(-50%) scaleY(1);
+  }
+}
+
+@keyframes process-label {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 0.4rem));
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
   }
 }

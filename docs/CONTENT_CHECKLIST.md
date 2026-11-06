@@ -19,8 +19,9 @@ client’s approval.
 - [x] Public phone number with country code (`site.contact.phone`: +91 4562690053)
 - [x] Street-level head office address in Aruppukottai, plus the Salem branch address
 - [x] Head office Google Map listing (`site.contact.map` and `headquarters.mapUrl`)
-- [ ] Who should receive enquiries, and through which service. This sets `ENQUIRY_WEBHOOK_URL`
-- [ ] **Privacy notice for the enquiry form** (`site.enquiry.privacyNotice`): who receives the data, why, how long it is kept, and how to request deletion. **The form stays disabled in production until this is approved**
+- [x] Enquiries go to `info@kingsrebar.com` (`site.contact.email`)
+- [ ] Email sending: set Outlook env vars so enquiries are mailed to `info@kingsrebar.com` from the same mailbox (Microsoft Graph app on Vercel, or `OUTLOOK_SMTP_PASSWORD` locally)
+- [x] Privacy notice for the enquiry form (`site.enquiry.privacyNotice`): operational UAT wording (emailed to info@kingsrebar.com, used only to reply, deletion via the same address). Replace with lawyer-reviewed copy before public launch if required
 - [ ] Confirm enquiry topics: currently "General enquiry", "Rebar detailing", "Rebar estimation", "Careers", "Other"
 - [ ] Confirm `www.kingsrebar.com` as the live domain, then set `SITE_URL=https://www.kingsrebar.com`
 - [x] LinkedIn company profile (`site.social`)
@@ -36,12 +37,13 @@ Published from `public/images/` and original SVG in `src/components/graphics/`:
 - Logo lockup and lion mark (header, footer, home seal, browser icon)
 - Founder portrait of K. Vigneshwaran on About (hero panel and Our story; never replace with generated imagery)
 - Home rebar field (illustrative SVG)
-- About / Services / Industries / Careers hero panels: founder photo plus three illustrative steel textures (`hero-services.jpg`, `hero-industries.jpg`, `hero-careers.jpg`). Those three are not Kings Rebar facilities, products, or projects
-- Contact hero keeps the abstract motif so the form stays quiet
+- About hero: founder photo
+- Services, Careers and Contact heroes: client-supplied images (`kr-services.jpg`, `kr-careers.jpg`, `kr-contact.png`), sourced from `Kings_Rebar_Assests/`
+- Industries hero: illustrative steel texture (`hero-industries.jpg`), not a Kings Rebar facility, product, or project
+- Home and About locations: client-supplied Tamil Nadu office map (`tamil-nadu-offices-map.png`, cut out from `KR_location.png`, whose checkerboard background was baked into the pixels)
 - Open Graph card generated from the approved logo
 
-Not published: LinkedIn banners, dark-backed logo files, team/office/project photos (none supplied). Contact has no background photograph so the form stays readable.
-
+Not published: LinkedIn banners, dark-backed logo files, team/office/project photos (none supplied).
 ## Already published from client copy
 
 - Company overview, founding story, founder name, mission and vision

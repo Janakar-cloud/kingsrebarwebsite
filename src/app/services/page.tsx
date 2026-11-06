@@ -1,3 +1,4 @@
+import { ItemList } from "@/components/content/ItemList";
 import { Paragraphs } from "@/components/content/Pending";
 import { routeMotifs } from "@/components/graphics/Motif";
 import { Reveal } from "@/components/motion/Reveal";
@@ -51,7 +52,9 @@ export default function ServicesPage() {
       </EditorialSection>
 
       <EditorialSection id="software-heading" eyebrow="Tools" heading={services.software.heading}>
-        <Paragraphs value={services.software.paragraphs} />
+        <Paragraphs value={services.software.intro} />
+        <ItemList items={services.software.tools} motion="group" />
+        <Paragraphs value={services.software.closing} />
       </EditorialSection>
 
       <EnquiryCta

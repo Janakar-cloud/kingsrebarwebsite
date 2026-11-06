@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding-block: var(--space-5) var(--space-8);
+  padding-block: var(--space-5) var(--space-6);
   background:
     radial-gradient(120% 90% at 85% 10%, rgb(224 103 47 / 0.1), transparent 55%),
     var(--steel-950);
@@ -97,4 +97,24 @@
       }
     }
   }
+}
+
+/*
+ * Images that must be shown whole (banners with baked-in text). The frame takes the
+ * image's own aspect ratio from an inline style, so nothing is cropped. The extra
+ * parallax overscan, the drift and the darkening gradient would all hide part of it.
+ * Declared last so it wins over the responsive rules above.
+ */
+.whole {
+  max-height: none;
+}
+
+.whole::after {
+  display: none;
+}
+
+.whole .parallax {
+  inset: 0;
+  animation: none;
+  transform: none;
 }

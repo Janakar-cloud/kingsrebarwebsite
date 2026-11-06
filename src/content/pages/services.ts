@@ -1,5 +1,5 @@
 import { routes } from "../routes";
-import type { ImageAsset, PageMeta } from "../types";
+import type { ImageAsset, ListItem, PageMeta } from "../types";
 
 export const services = {
   meta: {
@@ -12,12 +12,13 @@ export const services = {
     "Kings Rebar provides rebar detailing and estimation support for construction projects. The work is prepared from project drawings, specifications, and requirements supplied by the client.",
   summary:
     "Kings Rebar provides rebar detailing and estimation support for construction projects. The work is prepared from project drawings, specifications, and requirements supplied by the client.",
-  /** Illustrative steel texture, not a Kings Rebar product photograph. */
   heroImage: {
-    src: "/images/hero-services.jpg",
-    alt: "Illustrative close-up of steel reinforcing bars",
-    width: 1152,
-    height: 864,
+    src: "/images/kr-services.jpg",
+    alt: "A person pointing at a construction dashboard on a monitor at a job site",
+    width: 1024,
+    height: 445,
+    // A banner with its headline baked into the picture, so the frame must not crop it.
+    showWhole: true,
   } satisfies ImageAsset,
   detailing: {
     heading: "Rebar detailing",
@@ -38,8 +39,25 @@ export const services = {
     ],
   },
   software: {
-    heading: "Software",
-    paragraphs: ["The team uses AutoCAD and RebarCAD as part of its rebar detailing work."],
+    heading: "Software that supports our detailing work",
+    intro: [
+      "Kings Rebar’s team uses AutoCAD and RebarCAD as part of its rebar detailing workflow. These tools support the preparation of project detailing information based on the drawings, specifications and requirements provided for each project.",
+    ],
+    tools: [
+      {
+        title: "AutoCAD",
+        description:
+          "AutoCAD is part of our drafting workflow for working with project drawings and preparing detailing information.",
+      },
+      {
+        title: "RebarCAD",
+        description:
+          "RebarCAD is used as part of our rebar detailing work to prepare reinforcement details around project requirements.",
+      },
+    ] satisfies ListItem[],
+    closing: [
+      "Our team uses these tools in support of its detailing and estimation services. The software used for a project depends on its scope and requirements.",
+    ],
   },
   cta: {
     heading: "Have a project to discuss?",

@@ -13,3 +13,10 @@ export const notFound = {
   title: "Page not found",
   body: "The page you are looking for does not exist or may have moved.",
 } as const;
+
+/** Shown by the error boundaries when a page fails to render. */
+export const serverError = {
+  title: "Something went wrong",
+  body: "This page could not be displayed. You can try again, or contact Kings Rebar if the problem continues.",
+  retryLabel: "Try again",
+} as const;

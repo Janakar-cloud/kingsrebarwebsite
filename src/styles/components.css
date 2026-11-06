@@ -28,10 +28,6 @@
     color: var(--color-fg-muted);
   }
 
-  .muted {
-    color: var(--color-fg-muted);
-  }
-
   /* Fine film grain over dark surfaces. Static, rendered once. */
   .grain::after {
     content: "";

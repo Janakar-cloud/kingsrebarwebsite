@@ -13,8 +13,18 @@
 
 @media (min-width: 48rem) {
   .grid {
-    grid-template-columns: 1.6fr 1fr 1fr;
+    grid-template-columns: 1.3fr 0.8fr minmax(0, 1.8fr);
   }
+}
+
+@media (min-width: 72rem) {
+  .grid {
+    grid-template-columns: 1.1fr 0.7fr minmax(0, 2.4fr);
+  }
+}
+
+.contact {
+  min-width: 0;
 }
 
 .brand {
@@ -102,6 +112,43 @@
   -webkit-text-stroke: 0.028em var(--steel-700);
   paint-order: stroke fill;
   user-select: none;
+}
+
+.letter {
+  display: inline-block;
+}
+
+/*
+ * Entrance: the shared RevealObserver marks the wordmark "pending" only when it
+ * starts below the fold, then "shown" as it scrolls into view. Each letter
+ * rises and fades in on a stagger. Without JS, or with reduced motion, no state
+ * is set and the wordmark simply stays visible.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .giant[data-reveal-state] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .giant[data-reveal-state] .letter {
+    transition:
+      opacity 1.4s var(--ease-out),
+      transform 1.6s var(--ease-out),
+      -webkit-text-stroke-color var(--duration-base) var(--ease-standard);
+    transition-delay: calc(var(--letter, 0) * 90ms), calc(var(--letter, 0) * 90ms), 0s;
+  }
+
+  .giant[data-reveal-state="pending"] .letter {
+    opacity: 0;
+    transform: translate3d(0, 0.28em, 0);
+  }
+}
+
+/* Pointer devices: a letter lights up in the accent colour as the cursor passes. */
+@media (hover: hover) {
+  .letter:hover {
+    -webkit-text-stroke-color: var(--color-accent);
+  }
 }
 
 .legal {

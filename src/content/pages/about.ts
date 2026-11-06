@@ -1,4 +1,4 @@
-import { branches } from "../locations";
+import { branches, locationsMap } from "../locations";
 import { routes } from "../routes";
 import type { ImageAsset, ListItem, PageMeta } from "../types";
 
@@ -38,21 +38,9 @@ export const about = {
       height: 1344,
     } satisfies ImageAsset,
   },
-  approach: {
-    heading: "A practical approach to project work",
-    paragraphs: [
-      "Clear project information supports good coordination. Kings Rebar’s detailing and estimation work is prepared around the drawings, specifications, and scope provided for each project.",
-    ],
-  },
-  people: {
-    heading: "Building skills and careers",
-    paragraphs: [
-      "Kings Rebar helps early-career professionals develop technical skills through practical experience, training, and guidance from experienced colleagues.",
-    ],
-    cta: { label: "Explore careers", href: routes.careers },
-  },
   locations: {
     heading: "Where we work",
+    map: locationsMap,
     intro:
       "Kings Rebar has its head office in Aruppukottai and branch offices in Salem, Karur, Cheyyar, and Coimbatore, Tamil Nadu.",
     items: [...branches] satisfies ListItem[],
