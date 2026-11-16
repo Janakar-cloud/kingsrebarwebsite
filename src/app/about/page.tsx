@@ -11,12 +11,13 @@ import { Section } from "@/components/ui/Section";
 import { about } from "@/content/pages/about";
 import { routes } from "@/content/routes";
 import { pageMetadata } from "@/lib/seo";
+import { TeamMember } from "./TeamMember";
 import styles from "./about.module.css";
 
 export const metadata = pageMetadata(about.meta, routes.about, { absoluteTitle: true });
 
 export default function AboutPage() {
-  const { history, founder, locations, cta } = about;
+  const { history, founder, people, locations, cta } = about;
 
   return (
     <>
@@ -55,6 +56,29 @@ export default function AboutPage() {
           <Reveal variant="clip" className={styles.copy}>
             <Paragraphs value={history.paragraphs} />
           </Reveal>
+        </div>
+      </Section>
+
+      <Section labelledBy="people-heading">
+        <div className={styles.peopleHead}>
+          <p className="eyebrow">Team</p>
+          <h2 id="people-heading" className={styles.draw}>
+            {people.heading}
+          </h2>
+        </div>
+        <div className={styles.marquee} role="region" aria-label="Team portraits, scrolling automatically">
+          <div className={styles.track}>
+            <ul className={styles.people} aria-label="Team members">
+              {people.members.map((member, index) => (
+                <TeamMember key={member.name} member={member} index={index} />
+              ))}
+            </ul>
+            <ul className={`${styles.people} ${styles.peopleCopy}`} aria-hidden="true" inert>
+              {people.members.map((member, index) => (
+                <TeamMember key={`copy-${member.name}`} member={member} index={index} decorative />
+              ))}
+            </ul>
+          </div>
         </div>
       </Section>
 

@@ -78,11 +78,16 @@ test.describe("content that the client approved", () => {
     await expect(page.getByText("Build your knowledge. Learn through the work. Keep growing.")).toBeVisible();
   });
 
-  test("about page no longer contains the removed Approach and People sections", async ({ page }) => {
+  test("about page no longer contains the removed Approach section", async ({ page }) => {
     await page.goto("/about");
     await expect(page.getByRole("heading", { name: "Our story" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "The team" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Where we work" })).toBeVisible();
-    await expect(page.locator("#approach-heading, #people-heading")).toHaveCount(0);
+    await expect(page.locator("#approach-heading")).toHaveCount(0);
+    const team = page.getByRole("list", { name: "Team members" });
+    await expect(team.getByRole("listitem", { name: /K\. Mukunthan/ })).toBeVisible();
+    await expect(team.getByRole("listitem", { name: /Panel Team/ })).toBeVisible();
+    await expect(team.getByRole("listitem", { name: /12 years 8 months/ })).toBeVisible();
   });
 
   for (const [name, size] of [

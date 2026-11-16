@@ -1,15 +1,41 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
-import { ContactDetails, hasApprovedContactDetails } from "@/components/content/ContactDetails";
+import { hasApprovedContactDetails } from "@/components/content/ContactDetails";
 import { Icon } from "@/components/ui/Icon";
 import { showPlaceholders } from "@/config/env";
 import { navigation, routes } from "@/content/routes";
 import { site } from "@/content/site";
+import { publishedOrPreview } from "@/content/types";
 import { Wordmark } from "./Wordmark";
 import styles from "./SiteFooter.module.css";
 
+const { contact } = site;
+
+function visible<T>(value: Parameters<typeof publishedOrPreview<T>>[0]) {
+  return publishedOrPreview(value, showPlaceholders);
+}
+
+function telHref(phone: string) {
+  return `tel:${phone.replace(/[^\d+]/g, "")}`;
+}
+
+function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <div className={styles.column}>
+      <h2 className={styles.heading}>{title}</h2>
+      {children}
+    </div>
+  );
+}
+
 export function SiteFooter() {
+  const email = visible(contact.email);
+  const phone = visible(contact.phone);
+  const address = visible(contact.address);
+  const hours = visible(contact.hours);
+  const website = visible(contact.website);
+  const host = website?.replace(/^https?:\/\//, "");
   const showContact = showPlaceholders || hasApprovedContactDetails() || site.social.length > 0;
 
   return (
@@ -34,10 +60,26 @@ export function SiteFooter() {
           </ul>
         </nav>
 
-        {showContact && (
-          <div className={`${styles.column} ${styles.contact}`}>
-            <h2 className={styles.heading}>Contact</h2>
-            <ContactDetails columns />
+        {showContact && (email || phone || site.social.length > 0) && (
+          <FooterColumn title="Contact">
+            <dl className={styles.fields}>
+              {email && (
+                <div className={styles.field}>
+                  <dt className={styles.label}>Email</dt>
+                  <dd>
+                    <a href={`mailto:${email}`}>{email}</a>
+                  </dd>
+                </div>
+              )}
+              {phone && (
+                <div className={styles.field}>
+                  <dt className={styles.label}>Phone</dt>
+                  <dd>
+                    <a href={telHref(phone)}>{phone}</a>
+                  </dd>
+                </div>
+              )}
+            </dl>
             {site.social.length > 0 && (
               <ul className={styles.links} aria-label="Social media">
                 {site.social.map((profile) => (
@@ -49,7 +91,41 @@ export function SiteFooter() {
                 ))}
               </ul>
             )}
-          </div>
+          </FooterColumn>
+        )}
+
+        {showContact && address && (
+          <FooterColumn title="Address">
+            <address className={styles.address}>
+              {address.lines.map((line) => (
+                <span key={line} className={styles.line}>
+                  {line}
+                </span>
+              ))}
+            </address>
+          </FooterColumn>
+        )}
+
+        {showContact && (hours || website) && (
+          <FooterColumn title="Business hours">
+            {hours && (
+              <p className={styles.hours}>
+                {hours.map((line) => (
+                  <span key={line} className={styles.line}>
+                    {line}
+                  </span>
+                ))}
+              </p>
+            )}
+            {website && (
+              <div className={styles.field}>
+                <h2 className={styles.heading}>Website</h2>
+                <a href={website} rel="noopener noreferrer">
+                  {host}
+                </a>
+              </div>
+            )}
+          </FooterColumn>
         )}
       </div>
 

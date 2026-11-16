@@ -131,3 +131,182 @@
   height: auto;
   filter: drop-shadow(0 1.25rem 1.5rem rgb(11 15 18 / 0.28));
 }
+
+.peopleHead {
+  margin-bottom: var(--space-6);
+}
+
+.peopleHead h2 {
+  margin-bottom: 0;
+}
+
+.marquee {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+}
+
+.people {
+  display: grid;
+  gap: var(--space-6) var(--space-5);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.peopleCopy {
+  display: none;
+}
+
+.person {
+  min-width: 0;
+}
+
+.personCard {
+  margin: 0;
+}
+
+.personCard .name {
+  font-size: var(--text-base);
+}
+
+.personPhoto {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 12%;
+  border-radius: var(--radius-lg);
+  background: var(--color-graphic-base);
+  box-shadow: var(--shadow-lg);
+}
+
+.group {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-fg-muted);
+}
+
+.experience {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  color: var(--color-fg-muted);
+}
+
+@media (min-width: 48rem) {
+  .people {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 70rem) {
+  .people {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marquee {
+    margin-inline: calc(-1 * var(--page-gutter));
+    padding-block: var(--space-3);
+    mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .track {
+    gap: var(--space-5);
+    animation: people-scroll 16s linear infinite;
+  }
+
+  .marquee:hover .track,
+  .marquee:focus-within .track {
+    animation-play-state: paused;
+  }
+
+  .people,
+  .peopleCopy {
+    display: flex;
+    flex: none;
+    gap: var(--space-5);
+    grid-template-columns: none;
+  }
+
+  .peopleCopy {
+    display: flex;
+  }
+
+  .person {
+    flex: 0 0 13.5rem;
+  }
+
+  .personCard {
+    animation: people-roll 4.8s ease-in-out infinite;
+    animation-delay: var(--person-delay, 0s);
+    transform-origin: 50% 80%;
+  }
+
+  .personCard:hover,
+  .personCard:focus-within {
+    animation: people-shake 0.55s ease-in-out;
+    z-index: 1;
+  }
+
+  .personPhoto {
+    transition: box-shadow var(--duration-base) var(--ease-standard);
+  }
+
+  .personCard:hover .personPhoto,
+  .personCard:focus-within .personPhoto {
+    box-shadow: var(--shadow-lg), 0 0.75rem 1.5rem rgb(11 15 18 / 0.22);
+  }
+}
+
+@keyframes people-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - (var(--space-5) / 2)), 0, 0);
+  }
+}
+
+@keyframes people-roll {
+  0%,
+  100% {
+    transform: rotate(-1.2deg) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: rotate(1.2deg) translate3d(0, -0.45rem, 0);
+  }
+}
+
+@keyframes people-shake {
+  0%,
+  100% {
+    transform: rotate(0deg) translate3d(0, -0.35rem, 0);
+  }
+
+  20% {
+    transform: rotate(-3deg) translate3d(-0.2rem, -0.45rem, 0);
+  }
+
+  40% {
+    transform: rotate(3deg) translate3d(0.22rem, -0.25rem, 0);
+  }
+
+  60% {
+    transform: rotate(-2.2deg) translate3d(-0.14rem, -0.4rem, 0);
+  }
+
+  80% {
+    transform: rotate(1.6deg) translate3d(0.12rem, -0.3rem, 0);
+  }
+}

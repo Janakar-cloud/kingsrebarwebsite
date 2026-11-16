@@ -14,11 +14,11 @@ export const about = {
   summary:
     "Kings Rebar is a rebar detailing and estimation company established in 2015. The company was founded by K. Vigneshwaran and Bala Vigneshwaran and is headquartered in Aruppukottai, Tamil Nadu.",
   heroImage: {
-    src: "/images/founder-ceo.jpg",
+    src: "/images/founder-vigneshwaran.jpg",
     alt: "K. Vigneshwaran, founder of Kings Rebar",
-    width: 1086,
-    height: 1448,
-    objectPosition: "50% 10%",
+    width: 768,
+    height: 1344,
+    objectPosition: "50% 12%",
   } satisfies ImageAsset,
   history: {
     heading: "Our story",
@@ -37,6 +37,70 @@ export const about = {
       width: 1086,
       height: 1448,
     } satisfies ImageAsset,
+  },
+  people: {
+    heading: "The team",
+    members: [
+      {
+        name: "K. Mukunthan",
+        role: "Estimation Head",
+        experience: "12 years 8 months",
+        image: {
+          src: "/images/team/mukunthan.jpg",
+          alt: "Portrait of K. Mukunthan, estimation head at Kings Rebar",
+          width: 1064,
+          height: 1280,
+        } satisfies ImageAsset,
+      },
+      {
+        name: "M. Sarathkumar",
+        role: "Project Coordinator",
+        group: "Panel Team",
+        experience: "11 years 5 months",
+        image: {
+          src: "/images/team/sarathkumar.jpg",
+          alt: "Portrait of M. Sarathkumar, project coordinator for the panel team at Kings Rebar",
+          width: 637,
+          height: 982,
+        } satisfies ImageAsset,
+      },
+      {
+        name: "Thangaraj K",
+        role: "Project Coordinator",
+        group: "CMU Team",
+        experience: "10 years 6 months",
+        image: {
+          src: "/images/team/thangaraj.jpg",
+          alt: "Portrait of Thangaraj K, project coordinator for the CMU team at Kings Rebar",
+          width: 942,
+          height: 1280,
+        } satisfies ImageAsset,
+      },
+      {
+        name: "Suriyakumar D.",
+        role: "Project Coordinator",
+        group: "Concrete Team",
+        experience: "10 years 6 months",
+        image: {
+          src: "/images/team/suriyakumar.jpg",
+          alt: "Portrait of Suriyakumar D., project coordinator for the concrete team at Kings Rebar",
+          width: 1040,
+          height: 1280,
+        } satisfies ImageAsset,
+      },
+      {
+        name: "M. Santhosh",
+        role: "Project Coordinator",
+        group: "Foundation Team",
+        experience: "12 years 5 months",
+        image: {
+          src: "/images/team/santhosh.jpg",
+          alt: "Portrait of M. Santhosh, project coordinator for the foundation team at Kings Rebar",
+          width: 1006,
+          height: 1280,
+        } satisfies ImageAsset,
+      },
+    ],
   },
   locations: {
     heading: "Where we work",
