@@ -120,8 +120,9 @@ function mailboxAddress() {
   return process.env.OUTLOOK_MAILBOX?.trim() || process.env.ENQUIRY_FROM_EMAIL?.trim() || defaultMailbox;
 }
 
+/** All enquiry mail is delivered to the public company inbox only. */
 function recipientAddress() {
-  return process.env.ENQUIRY_TO_EMAIL?.trim() || defaultMailbox;
+  return defaultMailbox;
 }
 
 /**

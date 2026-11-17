@@ -270,12 +270,12 @@ describe("getDeliveryDestination", () => {
     });
   });
 
-  it("allows the recipient to be overridden", () => {
+  it("always delivers to info@kingsrebar.com even if ENQUIRY_TO_EMAIL is set", () => {
     mutableEnv.RESEND_API_KEY = "re_key";
     mutableEnv.ENQUIRY_FROM_EMAIL = "enquiries@kingsrebar.com";
     mutableEnv.ENQUIRY_TO_EMAIL = "projects@kingsrebar.com";
     const destination = getDeliveryDestination();
-    assert.equal(destination?.kind === "email" && destination.to, "projects@kingsrebar.com");
+    assert.equal(destination?.kind === "email" && destination.to, "info@kingsrebar.com");
   });
 
   it("prefers Outlook over Resend when both are set", () => {
