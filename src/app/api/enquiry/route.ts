@@ -2,6 +2,7 @@ import { isProduction } from "@/config/env";
 import { site } from "@/content/site";
 import { isApproved } from "@/content/types";
 import { deliverEnquiry, getDeliveryDestination } from "@/features/enquiry/deliver";
+import { clientIp, consumeRateLimit } from "@/features/enquiry/rateLimit";
 import {
   honeypotField,
   normaliseEnquiry,
@@ -11,8 +12,11 @@ import {
 
 const maxBodyBytes = 20_000;
 
-function reply(body: EnquiryResponse, status: number) {
-  return Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
+function reply(body: EnquiryResponse, status: number, extraHeaders: HeadersInit = {}) {
+  return Response.json(body, {
+    status,
+    headers: { "Cache-Control": "no-store", ...extraHeaders },
+  });
 }
 
 function isSameOrigin(request: Request): boolean {
@@ -28,6 +32,11 @@ function isSameOrigin(request: Request): boolean {
 
 export async function POST(request: Request) {
   if (!isSameOrigin(request)) return reply({ status: "failed" }, 403);
+
+  const rate = consumeRateLimit(clientIp(request));
+  if (!rate.ok) {
+    return reply({ status: "failed" }, 429, { "Retry-After": String(rate.retryAfterSec) });
+  }
 
   const raw = await request.text();
   if (raw.length > maxBodyBytes) return reply({ status: "failed" }, 413);

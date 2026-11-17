@@ -10,6 +10,7 @@ import {
   type OutlookSmtpConfig,
 } from "./outlook";
 import type { EnquiryValues } from "./validation";
+import { sanitizeWebhookUrl } from "./webhookUrl";
 
 export type DeliveryResult = "sent" | "failed";
 
@@ -162,8 +163,13 @@ export function getDeliveryDestination(): DeliveryDestination | null {
     return { kind: "email", apiKey, from, to: recipientAddress() };
   }
 
-  const url = process.env.ENQUIRY_WEBHOOK_URL?.trim();
-  if (!url) return null;
+  const url = sanitizeWebhookUrl(process.env.ENQUIRY_WEBHOOK_URL);
+  if (!url) {
+    if (process.env.ENQUIRY_WEBHOOK_URL?.trim()) {
+      console.error("ENQUIRY_WEBHOOK_URL rejected: must be HTTPS and not a private/local host.");
+    }
+    return null;
+  }
   const token = process.env.ENQUIRY_WEBHOOK_TOKEN?.trim() || undefined;
   return { kind: "webhook", url, token };
 }

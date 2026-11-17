@@ -6,6 +6,7 @@ mutableEnv.NODE_ENV = "development";
 
 const { POST } = await import("@/app/api/enquiry/route");
 const { site } = await import("@/content/site");
+const { resetRateLimit } = await import("@/features/enquiry/rateLimit");
 const { emptyEnquiry, honeypotField } = await import("@/features/enquiry/validation");
 
 const host = "www.example.test";
@@ -32,12 +33,15 @@ const realFetch = globalThis.fetch;
 
 afterEach(() => {
   globalThis.fetch = realFetch;
+  resetRateLimit();
   delete mutableEnv.ENQUIRY_WEBHOOK_URL;
   delete mutableEnv.ENQUIRY_DEV_SIMULATE;
   delete mutableEnv.OUTLOOK_SMTP_PASSWORD;
   delete mutableEnv.OUTLOOK_TENANT_ID;
   delete mutableEnv.OUTLOOK_CLIENT_ID;
   delete mutableEnv.OUTLOOK_CLIENT_SECRET;
+  delete mutableEnv.ENQUIRY_RATE_LIMIT;
+  delete mutableEnv.ENQUIRY_RATE_WINDOW_MS;
 });
 
 describe("POST /api/enquiry (development)", () => {
@@ -115,5 +119,19 @@ describe("POST /api/enquiry (development)", () => {
     } finally {
       console.error = originalError;
     }
+  });
+
+  it("rejects further submissions once the rate limit is exceeded", async () => {
+    mutableEnv.ENQUIRY_RATE_LIMIT = "2";
+    mutableEnv.ENQUIRY_RATE_WINDOW_MS = "60000";
+    mutableEnv.ENQUIRY_DEV_SIMULATE = "success";
+
+    assert.equal((await post(valid)).status, 200);
+    assert.equal((await post(valid)).status, 200);
+
+    const limited = await post(valid);
+    assert.equal(limited.status, 429);
+    assert.deepEqual(await limited.json(), { status: "failed" });
+    assert.ok(Number(limited.headers.get("retry-after")) > 0);
   });
 });

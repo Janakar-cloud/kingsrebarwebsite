@@ -31,6 +31,9 @@ describe("validateEnquiry", () => {
   it("rejects malformed email addresses", () => {
     assert.ok(validateField("email", "not-an-email", topics));
     assert.ok(validateField("email", "a@b", topics));
+    assert.ok(validateField("email", "test@example.com>", topics));
+    assert.ok(validateField("email", "test@exam\rple.com", topics));
+    assert.ok(validateField("email", "name <test@example.com>", topics));
     assert.equal(validateField("email", "a@b.co", topics), undefined);
   });
 

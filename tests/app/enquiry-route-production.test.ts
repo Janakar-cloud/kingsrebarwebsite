@@ -7,6 +7,7 @@ mutableEnv.NODE_ENV = "production";
 const { POST } = await import("@/app/api/enquiry/route");
 const { isApproved } = await import("@/content/types");
 const { site } = await import("@/content/site");
+const { resetRateLimit } = await import("@/features/enquiry/rateLimit");
 const { emptyEnquiry } = await import("@/features/enquiry/validation");
 
 const host = "www.example.test";
@@ -35,6 +36,7 @@ const realError = console.error;
 afterEach(() => {
   globalThis.fetch = realFetch;
   console.error = realError;
+  resetRateLimit();
   delete mutableEnv.ENQUIRY_WEBHOOK_URL;
   delete mutableEnv.ENQUIRY_DEV_SIMULATE;
   delete mutableEnv.OUTLOOK_SMTP_PASSWORD;

@@ -207,6 +207,23 @@ describe("getDeliveryDestination", () => {
     });
   });
 
+  it("rejects cleartext or private webhook URLs", () => {
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      mutableEnv.ENQUIRY_WEBHOOK_URL = "http://hooks.example.com/abc";
+      assert.equal(getDeliveryDestination(), null);
+
+      mutableEnv.ENQUIRY_WEBHOOK_URL = "https://127.0.0.1/hooks";
+      assert.equal(getDeliveryDestination(), null);
+
+      mutableEnv.ENQUIRY_WEBHOOK_URL = "https://169.254.169.254/latest/meta-data";
+      assert.equal(getDeliveryDestination(), null);
+    } finally {
+      console.error = originalError;
+    }
+  });
+
   it("prefers Outlook Graph when the Azure app is configured", () => {
     mutableEnv.OUTLOOK_TENANT_ID = " tenant ";
     mutableEnv.OUTLOOK_CLIENT_ID = " client ";

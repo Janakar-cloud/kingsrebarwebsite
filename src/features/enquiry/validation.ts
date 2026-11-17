@@ -25,8 +25,15 @@ export const limits = {
   message: 5000,
 } as const;
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/** Practical email shape without spaces, angle brackets, or control characters. */
+const emailPattern =
+  /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+$/;
 const phonePattern = /^\+?[0-9 ()\-.]{6,}$/;
+const unsafeEmailChars = /[\0\r\n\t <>\\]/;
+
+function isSafeEmail(value: string): boolean {
+  return !unsafeEmailChars.test(value) && emailPattern.test(value);
+}
 
 export function validateField(
   field: EnquiryField,
@@ -41,7 +48,7 @@ export function validateField(
       return undefined;
     case "email":
       if (!value) return "Enter your business email address.";
-      if (value.length > limits.email || !emailPattern.test(value))
+      if (value.length > limits.email || !isSafeEmail(value))
         return "Enter an email address in the format name@example.com.";
       return undefined;
     case "company":

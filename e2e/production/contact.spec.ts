@@ -87,7 +87,7 @@ test.describe("content that the client approved", () => {
     const team = page.getByRole("list", { name: "Team members" });
     await expect(team.getByRole("listitem", { name: /K\. Mukunthan/ })).toBeVisible();
     await expect(team.getByRole("listitem", { name: /Panel Team/ })).toBeVisible();
-    await expect(team.getByRole("listitem", { name: /12 years 8 months/ })).toBeVisible();
+    await expect(page.getByText("12 years 8 months")).toHaveCount(0);
   });
 
   for (const [name, size] of [

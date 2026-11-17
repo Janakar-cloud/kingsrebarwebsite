@@ -15,6 +15,8 @@ export function TeamMember({
   index: number;
   decorative?: boolean;
 }) {
+  const department = "group" in member && member.group ? member.group : member.role;
+
   return (
     <li
       className={styles.person}
@@ -27,14 +29,14 @@ export function TeamMember({
           alt={decorative ? "" : member.image.alt}
           width={member.image.width}
           height={member.image.height}
-          sizes="14rem"
+          sizes="16rem"
           className={styles.personPhoto}
         />
-        <figcaption className={styles.caption}>
-          <span className={styles.name}>{member.name}</span>
-          <span className={styles.role}>{member.role}</span>
-          {"group" in member && member.group ? <span className={styles.group}>{member.group}</span> : null}
-          <span className={styles.experience}>{member.experience}</span>
+        <figcaption className={styles.personCaption}>
+          <span className={styles.personMeta}>
+            <span className={styles.personName}>{member.name}</span>
+            <span className={styles.personDept}>{department}</span>
+          </span>
         </figcaption>
       </figure>
     </li>

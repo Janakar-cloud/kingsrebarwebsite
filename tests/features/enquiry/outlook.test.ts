@@ -21,4 +21,15 @@ describe("buildSmtpData", () => {
     const body = Buffer.from(encoded.replace(/\s/g, ""), "base64").toString("utf8");
     assert.match(body, /Name: Test Person/);
   });
+
+  it("strips control characters from address headers", () => {
+    const data = buildSmtpData("info@kingsrebar.com", "info@kingsrebar.com", {
+      subject: "Website enquiry",
+      text: "Body",
+      replyTo: "test@example.com\r\nBcc: evil@example.com",
+    });
+
+    assert.match(data, /^Reply-To: test@example.comBcc: evil@example.com/m);
+    assert.doesNotMatch(data, /\r\nBcc:/);
+  });
 });

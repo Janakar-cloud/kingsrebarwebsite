@@ -44,7 +44,6 @@ export const about = {
       {
         name: "K. Mukunthan",
         role: "Estimation Head",
-        experience: "12 years 8 months",
         image: {
           src: "/images/team/mukunthan.jpg",
           alt: "Portrait of K. Mukunthan, estimation head at Kings Rebar",
@@ -56,7 +55,6 @@ export const about = {
         name: "M. Sarathkumar",
         role: "Project Coordinator",
         group: "Panel Team",
-        experience: "11 years 5 months",
         image: {
           src: "/images/team/sarathkumar.jpg",
           alt: "Portrait of M. Sarathkumar, project coordinator for the panel team at Kings Rebar",
@@ -68,7 +66,6 @@ export const about = {
         name: "Thangaraj K",
         role: "Project Coordinator",
         group: "CMU Team",
-        experience: "10 years 6 months",
         image: {
           src: "/images/team/thangaraj.jpg",
           alt: "Portrait of Thangaraj K, project coordinator for the CMU team at Kings Rebar",
@@ -80,7 +77,6 @@ export const about = {
         name: "Suriyakumar D.",
         role: "Project Coordinator",
         group: "Concrete Team",
-        experience: "10 years 6 months",
         image: {
           src: "/images/team/suriyakumar.jpg",
           alt: "Portrait of Suriyakumar D., project coordinator for the concrete team at Kings Rebar",
@@ -92,7 +88,6 @@ export const about = {
         name: "M. Santhosh",
         role: "Project Coordinator",
         group: "Foundation Team",
-        experience: "12 years 5 months",
         image: {
           src: "/images/team/santhosh.jpg",
           alt: "Portrait of M. Santhosh, project coordinator for the foundation team at Kings Rebar",

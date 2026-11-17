@@ -123,13 +123,21 @@ function encodeHeader(value: string) {
   return `=?UTF-8?B?${Buffer.from(value, "utf8").toString("base64")}?=`;
 }
 
+/** Strips control characters so SMTP headers cannot be split or injected. */
+function sanitizeHeaderValue(value: string) {
+  return value.replace(/[\0\r\n]+/g, "").trim();
+}
+
 export function buildSmtpData(from: string, to: string, message: OutlookMessage): string {
+  const safeFrom = sanitizeHeaderValue(from);
+  const safeTo = sanitizeHeaderValue(to);
+  const safeReplyTo = sanitizeHeaderValue(message.replyTo);
   const body = Buffer.from(message.text.replace(/\r\n/g, "\n").replace(/\n/g, "\r\n"), "utf8").toString("base64");
   const wrapped = body.replace(/(.{1,76})/g, "$1\r\n").trimEnd();
   return [
-    `From: Kings Rebar Website <${from}>`,
-    `To: ${to}`,
-    `Reply-To: ${message.replyTo}`,
+    `From: Kings Rebar Website <${safeFrom}>`,
+    `To: ${encodeHeader(safeTo)}`,
+    `Reply-To: ${encodeHeader(safeReplyTo)}`,
     `Subject: ${encodeHeader(message.subject)}`,
     "MIME-Version: 1.0",
     "Content-Type: text/plain; charset=UTF-8",
